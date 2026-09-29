@@ -1,3 +1,5 @@
+import filterSettings from '../bookmarkImageFilter/index.cjs';
+
 export const bookmarkMinMax = {
   display: {
     rotate: { min: -180, max: 180 },
@@ -5,6 +7,9 @@ export const bookmarkMinMax = {
     gutter: { min: 0, max: 500 },
     visual: {
       size: { min: 5, max: 400 },
+      image: {
+        filters: filterSettings.limits
+      },
       shadow: { size: { min: 0, max: 100 } }
     },
     name: { size: { min: 5, max: 400 } }

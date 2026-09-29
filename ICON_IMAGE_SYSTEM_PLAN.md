@@ -487,6 +487,19 @@ brightness, contrast, blur.
   integration coverage rather than treating a successful webpack build as a
   substitute for behavior tests.
 
+### Implementation status
+
+Phase 12A is implemented in the bookmark editor and shared bookmark renderer.
+Filter defaults and bounds are centralized with the normalization helper, new
+and legacy bookmarks are handled safely, and the localized controls update the
+preview and persist through the existing bookmark data save/export path. The
+focused helper suite runs with `npm test`.
+
+The current main-image visual model does not define Original, Monochrome, or
+Accent appearance modes, nor mask-based image assets. Filters therefore apply
+directly to the source image layer; mode-specific combinations remain future
+work if those appearance modes are introduced.
+
 ## Phase 13: Live Preview
 
 All appearance and icon changes must update the existing bookmark preview immediately.

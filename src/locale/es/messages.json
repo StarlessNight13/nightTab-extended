@@ -2187,6 +2187,15 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "Escala de grises", "description": "Label for the bookmark image grayscale filter." },
+  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "Sepia", "description": "Label for the bookmark image sepia filter." },
+  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "Saturación", "description": "Label for the bookmark image saturation filter." },
+  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "Brillo", "description": "Label for the bookmark image brightness filter." },
+  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "Contraste", "description": "Label for the bookmark image contrast filter." },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "Rotación del tono", "description": "Label for the bookmark image hue rotation filter." },
+  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "Desenfoque", "description": "Label for the bookmark image blur filter." },
+  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "Restablecer filtros de imagen", "description": "Button to reset bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "Filtros de imagen", "description": "Disclosure summary for bookmark image filters." },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "Sombra visual",
     "description": "Range for bookmark tile visual shadow."

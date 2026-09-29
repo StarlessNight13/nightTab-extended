@@ -30,6 +30,7 @@ import { ordinalNumber } from '../../utility/ordinalNumber';
 import { randomString } from '../../utility/randomString';
 import { randomNumber } from '../../utility/randomNumber';
 import { bookmarkIcon } from '../bookmarkIcon';
+import { bookmarkImageFilter } from '../bookmarkImageFilter';
 
 import './index.css';
 
@@ -39,6 +40,9 @@ const iconProviderName = ['Font Awesome', 'Lucide', 'Simple Icons'];
 export const BookmarkForm = function({
   bookmarkData = false
 } = {}) {
+
+  bookmarkData.link.display.visual.image = bookmarkData.link.display.visual.image || { url: '' };
+  bookmarkData.link.display.visual.image.filters = bookmarkImageFilter.normalize(bookmarkData.link.display.visual.image.filters);
 
   this.element = {
     form: node('form|class:bookmark-form'),
@@ -323,7 +327,112 @@ export const BookmarkForm = function({
             action: () => {
               this.preview.update.assemble(bookmarkData);
             }
-          })
+          }),
+          filters: {
+            grayscale: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.grayscale',
+              id: 'display-visual-image-filter-grayscale',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterGrayscale'),
+              value: bookmarkData.link.display.visual.image.filters.grayscale,
+              min: bookmarkMinMax.display.visual.image.filters.grayscale.min,
+              max: bookmarkMinMax.display.visual.image.filters.grayscale.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            sepia: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.sepia',
+              id: 'display-visual-image-filter-sepia',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterSepia'),
+              value: bookmarkData.link.display.visual.image.filters.sepia,
+              min: bookmarkMinMax.display.visual.image.filters.sepia.min,
+              max: bookmarkMinMax.display.visual.image.filters.sepia.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            saturation: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.saturation',
+              id: 'display-visual-image-filter-saturation',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterSaturation'),
+              value: bookmarkData.link.display.visual.image.filters.saturation,
+              min: bookmarkMinMax.display.visual.image.filters.saturation.min,
+              max: bookmarkMinMax.display.visual.image.filters.saturation.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            brightness: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.brightness',
+              id: 'display-visual-image-filter-brightness',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterBrightness'),
+              value: bookmarkData.link.display.visual.image.filters.brightness,
+              min: bookmarkMinMax.display.visual.image.filters.brightness.min,
+              max: bookmarkMinMax.display.visual.image.filters.brightness.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            contrast: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.contrast',
+              id: 'display-visual-image-filter-contrast',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterContrast'),
+              value: bookmarkData.link.display.visual.image.filters.contrast,
+              min: bookmarkMinMax.display.visual.image.filters.contrast.min,
+              max: bookmarkMinMax.display.visual.image.filters.contrast.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            hueRotation: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.hueRotation',
+              id: 'display-visual-image-filter-hue-rotation',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterHueRotation'),
+              value: bookmarkData.link.display.visual.image.filters.hueRotation,
+              min: bookmarkMinMax.display.visual.image.filters.hueRotation.min,
+              max: bookmarkMinMax.display.visual.image.filters.hueRotation.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            blur: new Control_sliderSlim({
+              object: bookmarkData.link,
+              path: 'display.visual.image.filters.blur',
+              id: 'display-visual-image-filter-blur',
+              labelText: message.get('bookmarkFormDisplayVisualImageFilterBlur'),
+              value: bookmarkData.link.display.visual.image.filters.blur,
+              min: bookmarkMinMax.display.visual.image.filters.blur.min,
+              max: bookmarkMinMax.display.visual.image.filters.blur.max,
+              action: () => {
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            reset: new Button({
+              text: message.get('bookmarkFormDisplayVisualImageFiltersReset'),
+              title: message.get('bookmarkFormDisplayVisualImageFiltersReset'),
+              iconName: 'replay',
+              style: ['line'],
+              classList: ['bookmark-form-image-filter-reset'],
+              func: () => {
+                bookmarkData.link.display.visual.image.filters = bookmarkImageFilter.normalize();
+
+                ['grayscale', 'sepia', 'saturation', 'brightness', 'contrast', 'hueRotation', 'blur'].forEach((filter) => {
+                  this.control.bookmark.display.visual.image.filters[filter].update();
+                });
+
+                updateImageFilterValueText();
+
+                this.preview.update.style(bookmarkData);
+              }
+            }),
+            disclosure: node('details|class:bookmark-form-image-filters')
+          }
         },
         shadow: {
           size: new Control_sliderSlim({
@@ -624,6 +733,38 @@ export const BookmarkForm = function({
     }
   };
 
+  const imageFilterControlSettings = [
+    { key: 'grayscale', messageKey: 'bookmarkFormDisplayVisualImageFilterGrayscale', unit: '%' },
+    { key: 'sepia', messageKey: 'bookmarkFormDisplayVisualImageFilterSepia', unit: '%' },
+    { key: 'saturation', messageKey: 'bookmarkFormDisplayVisualImageFilterSaturation', unit: '%' },
+    { key: 'brightness', messageKey: 'bookmarkFormDisplayVisualImageFilterBrightness', unit: '%' },
+    { key: 'contrast', messageKey: 'bookmarkFormDisplayVisualImageFilterContrast', unit: '%' },
+    { key: 'hueRotation', messageKey: 'bookmarkFormDisplayVisualImageFilterHueRotation', unit: '°' },
+    { key: 'blur', messageKey: 'bookmarkFormDisplayVisualImageFilterBlur', unit: 'px' }
+  ];
+
+  const updateImageFilterValueText = () => {
+    imageFilterControlSettings.forEach(({ key, messageKey, unit }) => {
+      const control = this.control.bookmark.display.visual.image.filters[key];
+      const valueText = `${bookmarkData.link.display.visual.image.filters[key]}${unit}`;
+
+      control.range.setAttribute('aria-valuetext', valueText);
+      control.number.setAttribute('aria-label', `${message.get(messageKey)} (${unit})`);
+      control.number.setAttribute('aria-valuetext', valueText);
+    });
+  };
+
+  imageFilterControlSettings.forEach(({ key }) => {
+    const control = this.control.bookmark.display.visual.image.filters[key];
+
+    control.range.addEventListener('input', updateImageFilterValueText);
+    control.range.addEventListener('change', updateImageFilterValueText);
+    control.number.addEventListener('input', updateImageFilterValueText);
+    control.number.addEventListener('change', updateImageFilterValueText);
+  });
+
+  updateImageFilterValueText();
+
   this.control.propagate = {};
 
   this.control.propagate.visual = new Control_checkbox({
@@ -701,6 +842,22 @@ export const BookmarkForm = function({
   this.area.display = {};
 
   this.area.display.visual = () => {
+    const imageFilters = this.control.bookmark.display.visual.image.filters;
+    const imageFilterSummary = node('summary');
+
+    imageFilterSummary.textContent = message.get('bookmarkFormDisplayVisualImageFiltersSummary');
+    imageFilters.disclosure.appendChild(imageFilterSummary);
+
+    ['grayscale', 'sepia', 'saturation', 'brightness', 'contrast', 'hueRotation', 'blur'].forEach((filter) => {
+      imageFilters.disclosure.appendChild(imageFilters[filter].wrap());
+    });
+
+    imageFilters.disclosure.appendChild(form.wrap({
+      children: [imageFilters.reset.button]
+    }));
+
+    imageFilters.disclosure.hidden = !bookmarkData.link.display.visual.show || bookmarkData.link.display.visual.type !== 'image';
+
     return node('div', [
       form.wrap({
         children: [
@@ -744,7 +901,8 @@ export const BookmarkForm = function({
                 children: [
                   form.indent({
                     children: [
-                      this.control.bookmark.display.visual.image.url.wrap()
+                      this.control.bookmark.display.visual.image.url.wrap(),
+                      imageFilters.disclosure
                     ]
                   })
                 ]
@@ -1098,6 +1256,25 @@ export const BookmarkForm = function({
 
   this.disable = () => {
 
+    const imageFilterControls = this.control.bookmark.display.visual.image.filters;
+    const imageFiltersEnabled = bookmarkData.link.display.visual.show && bookmarkData.link.display.visual.type === 'image';
+
+    imageFilterControls.disclosure.hidden = !imageFiltersEnabled;
+
+    ['grayscale', 'sepia', 'saturation', 'brightness', 'contrast', 'hueRotation', 'blur'].forEach((filter) => {
+      if (imageFiltersEnabled) {
+        imageFilterControls[filter].enable();
+      } else {
+        imageFilterControls[filter].disable();
+      }
+    });
+
+    if (imageFiltersEnabled) {
+      imageFilterControls.reset.enable();
+    } else {
+      imageFilterControls.reset.disable();
+    }
+
     if (bookmarkData.link.display.visual.show) {
       this.control.bookmark.display.visual.type.enable();
       this.control.bookmark.display.visual.letter.text.enable();
@@ -1288,6 +1465,12 @@ export const BookmarkForm = function({
     }
 
     this.control.bookmark.display.visual.image.url.update();
+
+    ['grayscale', 'sepia', 'saturation', 'brightness', 'contrast', 'hueRotation', 'blur'].forEach((filter) => {
+      this.control.bookmark.display.visual.image.filters[filter].update();
+    });
+
+    updateImageFilterValueText();
 
     this.control.bookmark.display.name.show.update();
 

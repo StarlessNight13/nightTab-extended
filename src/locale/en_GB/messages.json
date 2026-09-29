@@ -2179,6 +2179,15 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "Greyscale", "description": "Label for the bookmark image grayscale filter." },
+  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "Sepia", "description": "Label for the bookmark image sepia filter." },
+  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "Saturation", "description": "Label for the bookmark image saturation filter." },
+  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "Brightness", "description": "Label for the bookmark image brightness filter." },
+  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "Contrast", "description": "Label for the bookmark image contrast filter." },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "Hue rotation", "description": "Label for the bookmark image hue rotation filter." },
+  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "Blur", "description": "Label for the bookmark image blur filter." },
+  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "Reset image filters", "description": "Button to reset bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "Image filters", "description": "Disclosure summary for bookmark image filters." },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "Visual shadow",
     "description": "Range for bookmark tile visual shadow."

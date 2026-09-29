@@ -2187,6 +2187,15 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "ग्रेस्केल", "description": "Label for the bookmark image grayscale filter." },
+  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "सेपिया", "description": "Label for the bookmark image sepia filter." },
+  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "संतृप्ति", "description": "Label for the bookmark image saturation filter." },
+  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "चमक", "description": "Label for the bookmark image brightness filter." },
+  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "कंट्रास्ट", "description": "Label for the bookmark image contrast filter." },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "रंग घुमाव", "description": "Label for the bookmark image hue rotation filter." },
+  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "धुंधलापन", "description": "Label for the bookmark image blur filter." },
+  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "छवि फ़िल्टर रीसेट करें", "description": "Button to reset bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "छवि फ़िल्टर", "description": "Disclosure summary for bookmark image filters." },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "दृश्य छाया",
     "description": "Range for bookmark tile visual shadow."

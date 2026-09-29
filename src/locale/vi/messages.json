@@ -2187,6 +2187,15 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "Thang độ xám", "description": "Label for the bookmark image grayscale filter." },
+  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "Nâu đỏ", "description": "Label for the bookmark image sepia filter." },
+  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "Độ bão hòa", "description": "Label for the bookmark image saturation filter." },
+  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "Độ sáng", "description": "Label for the bookmark image brightness filter." },
+  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "Độ tương phản", "description": "Label for the bookmark image contrast filter." },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "Xoay sắc độ", "description": "Label for the bookmark image hue rotation filter." },
+  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "Làm mờ", "description": "Label for the bookmark image blur filter." },
+  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "Đặt lại bộ lọc hình ảnh", "description": "Button to reset bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "Bộ lọc hình ảnh", "description": "Disclosure summary for bookmark image filters." },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "Bóng trực quan",
     "description": "Range for bookmark tile visual shadow."

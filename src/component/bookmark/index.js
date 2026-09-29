@@ -12,6 +12,7 @@ import { BookmarkTile } from '../bookmarkTile';
 import { GroupEmpty } from '../groupEmpty';
 import { BookmarkForm } from '../bookmarkForm';
 import { StagedBookmark } from '../stagedBookmark';
+import { bookmarkImageFilter } from '../bookmarkImageFilter';
 import { StagedGroup } from '../stagedGroup';
 import { Modal } from '../modal';
 
@@ -532,6 +533,7 @@ bookmark.reset = () => {
       newBookmarkData.link.display.visual.icon = item.display.visual.icon;
 
       newBookmarkData.link.display.visual.image.url = item.display.visual.image.url;
+      newBookmarkData.link.display.visual.image.filters = bookmarkImageFilter.normalize(item.display.visual.image.filters);
 
       newBookmarkData.position.origin.group = groupIndex;
 

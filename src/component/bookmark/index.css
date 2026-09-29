@@ -590,6 +590,7 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  filter: var(--bookmark-display-visual-image-filter, none);
   width: 1em;
   height: 1em;
   font-size: calc(var(--bookmark-display-visual-size) * 0.1em);

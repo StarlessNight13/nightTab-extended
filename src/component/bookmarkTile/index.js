@@ -12,6 +12,7 @@ import { Modal } from '../modal';
 import { StagedBookmark } from '../stagedBookmark';
 import { StagedGroup } from '../stagedGroup';
 import { BookmarkForm } from '../bookmarkForm';
+import { bookmarkImageFilter } from '../bookmarkImageFilter';
 
 import { node } from '../../utility/node';
 import { complexNode } from '../../utility/complexNode';
@@ -127,7 +128,7 @@ const BookmarkTile = function({
       classList: ['bookmark-control-button', 'bookmark-control-edit'],
       func: () => {
 
-        let newBookmarkData = new StagedBookmark();
+        const newBookmarkData = new StagedBookmark();
 
         newBookmarkData.link = JSON.parse(JSON.stringify(bookmarkData.link));
 
@@ -316,6 +317,14 @@ const BookmarkTile = function({
     this.element.bookmark.style.setProperty('--bookmark-display-visual-size', bookmarkData.link.display.visual.size);
 
     this.element.bookmark.style.setProperty('--bookmark-display-visual-image-url', 'url("' + trimString(bookmarkData.link.display.visual.image.url) + '")');
+
+    const imageFilter = bookmarkImageFilter.toCss(bookmarkData.link.display.visual.image.filters);
+
+    if (imageFilter) {
+      this.element.content.display.visual.image.style.setProperty('--bookmark-display-visual-image-filter', imageFilter);
+    } else {
+      this.element.content.display.visual.image.style.removeProperty('--bookmark-display-visual-image-filter');
+    }
 
     this.element.bookmark.style.setProperty('--bookmark-display-name-size', bookmarkData.link.display.name.size);
 
