@@ -2168,8 +2168,12 @@
     "description": "Label for bookmark tile visual icon."
   },
   "bookmarkFormDisplayVisualIconTextPlaceholder": {
-    "message": "FontAwesome Brands or Icons",
+    "message": "Search icons",
     "description": "Placeholder for bookmark tile visual icon."
+  },
+  "bookmarkFormDisplayVisualIconProviderLabel": {
+    "message": "Icon provider",
+    "description": "Label for bookmark icon provider."
   },
   "bookmarkFormDisplayVisualIconRemove": {
     "message": "Remove icon",

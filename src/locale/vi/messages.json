@@ -2168,8 +2168,12 @@
     "description": "Label for bookmark tile visual icon."
   },
   "bookmarkFormDisplayVisualIconTextPlaceholder": {
-    "message": "Thương hiệu hoặc biểu tượng FontAwesome",
+    "message": "Tìm biểu tượng",
     "description": "Placeholder for bookmark tile visual icon."
+  },
+  "bookmarkFormDisplayVisualIconProviderLabel": {
+    "message": "Nhà cung cấp biểu tượng",
+    "description": "Label for bookmark icon provider."
   },
   "bookmarkFormDisplayVisualIconRemove": {
     "message": "Xóa biểu tượng",

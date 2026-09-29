@@ -58,6 +58,15 @@ module.exports = {
       }, {
         from: './src/initialBackground.js',
         to: './initialBackground.js'
+      }, {
+        from: './node_modules/lucide-static/LICENSE',
+        to: './licenses/lucide.txt'
+      }, {
+        from: './node_modules/simple-icons/LICENSE.md',
+        to: './licenses/simple-icons-license.md'
+      }, {
+        from: './node_modules/simple-icons/DISCLAIMER.md',
+        to: './licenses/simple-icons-disclaimer.md'
       }]
     })
   ]

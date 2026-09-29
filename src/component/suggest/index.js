@@ -1,8 +1,7 @@
-import { fontawesome } from '../fontawesome';
+import { bookmarkIcon } from '../bookmarkIcon';
 
 import { Button } from '../button';
 
-import { isValidString } from '../../utility/isValidString';
 import { trimString } from '../../utility/trimString';
 import { node } from '../../utility/node';
 import { clearChildNode } from '../../utility/clearChildNode';
@@ -12,7 +11,7 @@ import './index.css';
 export const Suggest = function ({
   input = false,
   widthElement = false,
-  type = false,
+  type = 'fontawesome',
   postFocus = false,
   action = false
 } = {}) {
@@ -21,15 +20,25 @@ export const Suggest = function ({
     open: false
   };
 
+  this.type = type;
+
   this.element = {
     suggest: node('div|class:suggest'),
     list: node('div|class:suggest-list list-unstyled'),
     input: input
   };
 
-  this.open = () => {
+  this.open = async () => {
 
-    const results = this.suggestItems();
+    const provider = this.type;
+
+    const term = this.searchTerm();
+
+    const results = await bookmarkIcon.search(provider, term);
+
+    if (provider !== this.type || term !== this.searchTerm()) {
+      return;
+    }
 
     if (results.length > 0) {
 
@@ -73,6 +82,11 @@ export const Suggest = function ({
 
     }
 
+  };
+
+  this.setType = (provider) => {
+    this.type = provider;
+    this.open();
   };
 
   this.close = () => {
@@ -175,98 +189,54 @@ export const Suggest = function ({
 
   this.populateList = (results) => {
 
-    const listType = {
-      fontawesomeIcon: () => {
-        const successAction = (suggestData) => {
+    const successAction = (suggestData) => {
 
-          this.close();
+      this.close();
 
-          if (action) {
-            action(suggestData);
-          }
-
-          if (postFocus) {
-            postFocus.focus();
-          }
-
-        };
-
-        results.forEach((item) => {
-
-          let li = node('li|class:suggest-list-item');
-
-          let resultItem = new Button({
-            text: false,
-            style: ['link', 'ring'],
-            classList: ['suggest-item'],
-            func: () => {
-              successAction(item);
-            }
-          });
-
-          let icon = node('span|class:suggest-icon fa-' + item.name);
-
-          if (item.styles.includes('solid')) {
-            icon.classList.add('fas');
-          } else if (item.styles.includes('brands')) {
-            icon.classList.add('fab');
-          }
-
-          let text = node('span:' + item.label + '|class:suggest-icon-text');
-
-          resultItem.button.appendChild(icon);
-
-          resultItem.button.appendChild(text);
-
-          li.appendChild(resultItem.button);
-
-          this.element.list.appendChild(li);
-
-        });
+      if (action) {
+        action(suggestData);
       }
+
+      if (postFocus) {
+        postFocus.focus();
+      }
+
     };
 
-    listType[type]();
+    results.forEach((item) => {
+
+      let li = node('li|class:suggest-list-item');
+
+      let resultItem = new Button({
+        text: false,
+        style: ['link', 'ring'],
+        classList: ['suggest-item'],
+        func: () => {
+          successAction(item);
+        }
+      });
+
+      let icon = bookmarkIcon.renderData(item.prefix, item.data, 'suggest-icon');
+
+      let text = node('span|class:suggest-icon-text');
+
+      text.textContent = item.label;
+
+      if (icon) {
+        resultItem.button.appendChild(icon);
+      }
+
+      resultItem.button.appendChild(text);
+
+      li.appendChild(resultItem.button);
+
+      this.element.list.appendChild(li);
+
+    });
 
   };
 
   this.timer = false;
-
-  this.suggestItems = () => {
-    const suggestType = {
-      fontawesomeIcon: (string) => {
-        if (isValidString(string)) {
-
-          return fontawesome.filter((item) => {
-            let match = false;
-
-            if (item.name.toLowerCase().includes(string) || item.label.toLowerCase().includes(string)) {
-              match = true;
-            }
-
-            item.search.forEach((item) => {
-              if (item.toLowerCase().includes(string)) {
-                match = true;
-              }
-            });
-
-            item.styles.forEach((item) => {
-              if (item.toLowerCase().includes(string)) {
-                match = true;
-              }
-            });
-
-            return match;
-          });
-
-        } else {
-          return fontawesome;
-        }
-      }
-    };
-
-    return suggestType[type](this.searchTerm());
-  };
 
   this.navigateResults = (event) => {
 

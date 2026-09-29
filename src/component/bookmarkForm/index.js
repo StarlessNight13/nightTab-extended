@@ -29,8 +29,12 @@ import { isValidString } from '../../utility/isValidString';
 import { ordinalNumber } from '../../utility/ordinalNumber';
 import { randomString } from '../../utility/randomString';
 import { randomNumber } from '../../utility/randomNumber';
+import { bookmarkIcon } from '../bookmarkIcon';
 
 import './index.css';
+
+const iconProviderId = ['fontawesome', 'lucide', 'simple-icons'];
+const iconProviderName = ['Font Awesome', 'Lucide', 'Simple Icons'];
 
 export const BookmarkForm = function({
   bookmarkData = false
@@ -91,6 +95,8 @@ export const BookmarkForm = function({
   };
 
   this.control = {};
+
+  const iconProviderIndex = Math.max(0, iconProviderId.indexOf(bookmarkData.link.display.visual.icon.prefix));
 
   this.control.bookmark = {
     url: new Control_text({
@@ -265,6 +271,16 @@ export const BookmarkForm = function({
           })
         },
         icon: {
+          provider: new Control_select({
+            object: false,
+            id: 'display-visual-icon-provider',
+            option: iconProviderName,
+            selected: iconProviderIndex,
+            labelText: message.get('bookmarkFormDisplayVisualIconProviderLabel'),
+            action: () => {
+              this.suggest.setType(iconProviderId[this.control.bookmark.display.visual.icon.provider.selected()]);
+            }
+          }),
           text: new Control_text({
             object: bookmarkData.link,
             path: 'display.visual.icon.label',
@@ -707,6 +723,7 @@ export const BookmarkForm = function({
                     children: [
                       form.wrap({
                         children: [
+                          this.control.bookmark.display.visual.icon.provider.wrap(),
                           this.control.bookmark.display.visual.icon.text.label,
                           form.group({
                             block: true,
@@ -1084,6 +1101,7 @@ export const BookmarkForm = function({
     if (bookmarkData.link.display.visual.show) {
       this.control.bookmark.display.visual.type.enable();
       this.control.bookmark.display.visual.letter.text.enable();
+      this.control.bookmark.display.visual.icon.provider.enable();
       this.control.bookmark.display.visual.icon.text.enable();
       this.control.bookmark.display.visual.icon.preview.enable();
       this.control.bookmark.display.visual.icon.remove.enable();
@@ -1093,6 +1111,7 @@ export const BookmarkForm = function({
       switch (bookmarkData.link.display.visual.type) {
         case 'letter':
           this.control.bookmark.display.visual.letter.text.enable();
+          this.control.bookmark.display.visual.icon.provider.disable();
           this.control.bookmark.display.visual.icon.text.disable();
           this.control.bookmark.display.visual.icon.preview.disable();
           this.control.bookmark.display.visual.icon.remove.disable();
@@ -1101,6 +1120,7 @@ export const BookmarkForm = function({
 
         case 'icon':
           this.control.bookmark.display.visual.letter.text.disable();
+          this.control.bookmark.display.visual.icon.provider.enable();
           this.control.bookmark.display.visual.icon.text.enable();
           this.control.bookmark.display.visual.icon.preview.enable();
           this.control.bookmark.display.visual.icon.remove.enable();
@@ -1109,6 +1129,7 @@ export const BookmarkForm = function({
 
         case 'image':
           this.control.bookmark.display.visual.letter.text.disable();
+          this.control.bookmark.display.visual.icon.provider.disable();
           this.control.bookmark.display.visual.icon.text.disable();
           this.control.bookmark.display.visual.icon.preview.disable();
           this.control.bookmark.display.visual.icon.remove.disable();
@@ -1118,6 +1139,7 @@ export const BookmarkForm = function({
     } else {
       this.control.bookmark.display.visual.type.disable();
       this.control.bookmark.display.visual.letter.text.disable();
+      this.control.bookmark.display.visual.icon.provider.disable();
       this.control.bookmark.display.visual.icon.text.disable();
       this.control.bookmark.display.visual.icon.preview.disable();
       this.control.bookmark.display.visual.icon.remove.disable();
@@ -1253,7 +1275,14 @@ export const BookmarkForm = function({
     this.control.bookmark.display.visual.icon.text.update();
 
     if (isValidString(bookmarkData.link.display.visual.icon.prefix) && isValidString(bookmarkData.link.display.visual.icon.name)) {
-      this.control.bookmark.display.visual.icon.preview.update(node('span|class:bookmark-form-icon ' + bookmarkData.link.display.visual.icon.prefix + ' fa-' + bookmarkData.link.display.visual.icon.name));
+      const iconName = bookmarkData.link.display.visual.icon.name;
+      const iconPrefix = bookmarkData.link.display.visual.icon.prefix;
+
+      bookmarkIcon.render(iconName, iconPrefix, 'bookmark-form-icon').then((iconElement) => {
+        if (iconPrefix === bookmarkData.link.display.visual.icon.prefix && iconName === bookmarkData.link.display.visual.icon.name) {
+          this.control.bookmark.display.visual.icon.preview.update(iconElement);
+        }
+      });
     } else {
       this.control.bookmark.display.visual.icon.preview.update();
     }
@@ -1295,19 +1324,14 @@ export const BookmarkForm = function({
   this.suggest = new Suggest({
     input: this.control.bookmark.display.visual.icon.text.text,
     widthElement: this.element.main,
-    type: 'fontawesomeIcon',
+    type: iconProviderId[iconProviderIndex],
 
     postFocus: this.control.bookmark.display.visual.icon.preview.groupText,
     action: (suggestData) => {
 
       bookmarkData.link.display.visual.icon.label = suggestData.label;
       bookmarkData.link.display.visual.icon.name = suggestData.name;
-
-      if (suggestData.styles.includes('solid')) {
-        bookmarkData.link.display.visual.icon.prefix = 'fas';
-      } else if (suggestData.styles.includes('brands')) {
-        bookmarkData.link.display.visual.icon.prefix = 'fab';
-      }
+      bookmarkData.link.display.visual.icon.prefix = suggestData.prefix;
 
       this.preview.update.assemble(bookmarkData);
       this.update();

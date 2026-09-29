@@ -17,6 +17,7 @@ import { node } from '../../utility/node';
 import { complexNode } from '../../utility/complexNode';
 import { isValidString } from '../../utility/isValidString';
 import { trimString } from '../../utility/trimString';
+import { bookmarkIcon } from '../bookmarkIcon';
 
 const BookmarkTile = function({
   bookmarkData = {},
@@ -38,7 +39,6 @@ const BookmarkTile = function({
           visual: node('div|class:bookmark-display-visual'),
           letter: complexNode({ tag: 'div', text: bookmarkData.link.display.visual.letter.text, attr: [{ key: 'class', value: 'bookmark-display-visual-letter' }] }),
           icon: node('div|class:bookmark-display-visual-icon'),
-          faIcon: node('div|class:' + bookmarkData.link.display.visual.icon.prefix + ' fa-' + bookmarkData.link.display.visual.icon.name),
           image: node('div|class:bookmark-display-visual-image')
         },
         name: {
@@ -449,7 +449,11 @@ const BookmarkTile = function({
 
           case 'icon':
             if (isValidString(bookmarkData.link.display.visual.icon.name)) {
-              this.element.content.display.visual.icon.appendChild(this.element.content.display.visual.faIcon);
+              bookmarkIcon.render(bookmarkData.link.display.visual.icon.name, bookmarkData.link.display.visual.icon.prefix).then((icon) => {
+                if (icon) {
+                  this.element.content.display.visual.icon.appendChild(icon);
+                }
+              });
               this.element.content.display.visual.visual.appendChild(this.element.content.display.visual.icon);
               this.element.content.display.display.appendChild(this.element.content.display.visual.visual);
             }
