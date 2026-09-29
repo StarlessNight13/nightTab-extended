@@ -639,13 +639,17 @@
     "message": "Kết thúc gradient nền",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Hình ảnh cục bộ không thể được sử dụng nữa. Hình ảnh phải được lưu trữ ở đâu đó trực tuyến.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Chọn ảnh (tối đa 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Tại sao điều này lại thay đổi?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Xóa ảnh đã tải lên",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Không thể sử dụng ảnh này. Ảnh có thể không hợp lệ, vượt quá 2 MiB hoặc vượt quá dung lượng lưu trữ còn trống của trình duyệt.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

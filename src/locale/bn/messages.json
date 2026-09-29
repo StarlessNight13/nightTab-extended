@@ -639,13 +639,17 @@
     "message": "পটভূমি গ্রেডিয়েন্ট শেষ",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "স্থানীয় ছবি আর ব্যবহার করা যাবে না. ছবি অনলাইন কোথাও হোস্ট করা আবশ্যক.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "ছবি বেছে নিন (সর্বোচ্চ 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "কেন এই পরিবর্তন হয়েছে?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "আপলোড করা ছবি সরান",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "এই ছবি ব্যবহার করা যায়নি। এটি অবৈধ, 2 MiB-এর বেশি বা ব্রাউজারের উপলভ্য স্টোরেজের চেয়ে বড় হতে পারে।",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

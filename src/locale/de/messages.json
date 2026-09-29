@@ -639,13 +639,17 @@
     "message": "Ende des Hintergrundverlaufs",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Lokale Bilder können nicht mehr verwendet werden. Bilder müssen irgendwo online gehostet werden.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Bild auswählen (max. 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Warum hat sich das geändert?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Hochgeladenes Bild entfernen",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Dieses Bild kann nicht verwendet werden. Es ist möglicherweise ungültig, größer als 2 MiB oder der verfügbare Browserspeicher reicht nicht aus.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

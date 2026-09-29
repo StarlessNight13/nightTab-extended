@@ -639,13 +639,17 @@
     "message": "Latar belakang gradien akhir",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Gambar lokal tidak dapat digunakan lagi. Gambar harus di-host di suatu tempat online.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Pilih gambar (maks. 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Mengapa ini berubah?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Hapus gambar yang diunggah",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Gambar ini tidak dapat digunakan. Mungkin tidak valid, melebihi 2 MiB, atau melampaui penyimpanan browser yang tersedia.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

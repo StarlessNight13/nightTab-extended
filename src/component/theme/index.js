@@ -386,8 +386,13 @@ theme.background.image = {
   render: () => {
 
     const html = document.querySelector('html');
+    const uploadedImage = state.get.current().theme.background.image.upload;
 
-    if (isValidString(state.get.current().theme.background.image.url)) {
+    if (uploadedImage && isValidString(uploadedImage.data)) {
+
+      html.style.setProperty('--theme-background-image', 'url("' + uploadedImage.data + '")');
+
+    } else if (isValidString(state.get.current().theme.background.image.url)) {
 
       const allUrls = trimString(state.get.current().theme.background.image.url).split(/\s+/).filter((item) => { return item != ''; });
 

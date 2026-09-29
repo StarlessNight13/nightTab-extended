@@ -639,13 +639,17 @@
     "message": "Закінчення градієнта фону",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Місцеві зображення більше не можна використовувати. Зображення мають бути розміщені десь в Інтернеті.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Вибрати зображення (макс. 2 МіБ)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Чому це змінилося?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Видалити завантажене зображення",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Не вдалося використати зображення. Можливо, воно недійсне, перевищує 2 МіБ або для нього бракує місця у сховищі браузера.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

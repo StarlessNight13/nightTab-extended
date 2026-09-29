@@ -639,13 +639,17 @@
     "message": "Fine sfumatura di sfondo",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Le immagini locali non possono più essere utilizzate. Le immagini devono essere ospitate da qualche parte online.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Scegli immagine (max 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Perché è cambiato?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Rimuovi immagine caricata",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Impossibile usare questa immagine. Potrebbe non essere valida, superare 2 MiB o eccedere lo spazio disponibile nel browser.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

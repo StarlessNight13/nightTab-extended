@@ -639,13 +639,17 @@
     "message": "પૃષ્ઠભૂમિ ઢાળ અંત",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "સ્થાનિક છબીઓનો હવે ઉપયોગ કરી શકાતો નથી. છબીઓ ક્યાંક ઓનલાઈન હોસ્ટ કરવી આવશ્યક છે.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "છબી પસંદ કરો (મહત્તમ 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "આ કેમ બદલાયું છે?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "અપલોડ કરેલી છબી દૂર કરો",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "આ છબીનો ઉપયોગ થઈ શક્યો નથી. તે અમાન્ય, 2 MiBથી મોટી અથવા બ્રાઉઝરના ઉપલબ્ધ સ્ટોરેજ કરતાં મોટી હોઈ શકે છે.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

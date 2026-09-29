@@ -639,13 +639,17 @@
     "message": "Fin du dégradé de fond",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Les images locales ne peuvent plus être utilisées. Les images doivent être hébergées quelque part en ligne.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Choisir une image (2 Mio max.)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Pourquoi cela a-t-il changé ?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Supprimer l’image importée",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Impossible d’utiliser cette image. Elle est peut-être invalide, dépasse 2 Mio ou excède l’espace de stockage disponible du navigateur.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

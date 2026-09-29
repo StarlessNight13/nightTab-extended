@@ -35,6 +35,7 @@ import { Control_sliderDouble } from '../../control/sliderDouble';
 import { Control_colorMixer } from '../../control/colorMixer';
 import { Control_textReset } from '../../control/textReset';
 import { Control_textarea } from '../../control/textarea';
+import { Control_inputButton } from '../../control/inputButton';
 
 import { node } from '../../../utility/node';
 import { complexNode } from '../../../utility/complexNode';
@@ -59,6 +60,131 @@ themeSetting.control = {
   header: {},
   bookmark: {},
   background: {}
+};
+
+const backgroundImageUploadLimit = 2 * 1024 * 1024;
+
+const updateBackgroundImageUpload = () => {
+  const imageControls = themeSetting.control.background.image;
+
+  if (!imageControls || !imageControls.upload) {
+    return;
+  }
+
+  const image = state.get.current().theme.background.image;
+  const uploadedImage = image.upload;
+  const hasUpload = uploadedImage && uploadedImage.data;
+  const imageBackgroundActive = state.get.current().theme.background.type === 'image';
+
+  imageControls.uploadStatus.textContent = hasUpload && uploadedImage.name ? uploadedImage.name : '';
+  imageControls.uploadStatus.hidden = !hasUpload || !uploadedImage.name;
+
+  if (imageBackgroundActive) {
+    imageControls.upload.enable();
+  } else {
+    imageControls.upload.disable();
+  }
+
+  imageControls.uploadRemove.button.disabled = !hasUpload || !imageBackgroundActive;
+};
+
+const showBackgroundImageUploadError = () => {
+  const imageControls = themeSetting.control.background.image;
+
+  imageControls.uploadFeedback.textContent = message.get('menuContentThemeBackgroundImageUploadError');
+  imageControls.uploadFeedback.hidden = false;
+  imageControls.upload.input.value = '';
+  updateBackgroundImageUpload();
+};
+
+const uploadBackgroundImage = (file) => {
+  const imageControls = themeSetting.control.background.image;
+
+  if (!file) {
+    return;
+  }
+
+  imageControls.uploadFeedback.textContent = '';
+  imageControls.uploadFeedback.hidden = true;
+
+  if (file.size > backgroundImageUploadLimit || !file.type || file.type.toLowerCase().indexOf('image/') !== 0) {
+    showBackgroundImageUploadError();
+    return;
+  }
+
+  imageControls.upload.disable();
+
+  const reader = new window.FileReader();
+
+  reader.onerror = showBackgroundImageUploadError;
+  reader.onabort = showBackgroundImageUploadError;
+  reader.onload = () => {
+    if (typeof reader.result !== 'string' || reader.result.indexOf('data:image/') !== 0) {
+      showBackgroundImageUploadError();
+      return;
+    }
+
+    const preview = new window.Image();
+
+    preview.onerror = showBackgroundImageUploadError;
+    preview.onload = () => {
+      const image = state.get.current().theme.background.image;
+      const previousUpload = image.upload;
+
+      image.upload = { name: file.name, data: reader.result };
+
+      try {
+        data.save();
+      } catch {
+        if (previousUpload) {
+          image.upload = previousUpload;
+        } else {
+          delete image.upload;
+        }
+
+        showBackgroundImageUploadError();
+        return;
+      }
+
+      theme.background.image.render();
+      imageControls.upload.input.value = '';
+      updateBackgroundImageUpload();
+    };
+
+    preview.src = reader.result;
+  };
+
+  try {
+    reader.readAsDataURL(file);
+  } catch {
+    showBackgroundImageUploadError();
+  }
+};
+
+const removeBackgroundImageUpload = () => {
+  const imageControls = themeSetting.control.background.image;
+  const image = state.get.current().theme.background.image;
+  const previousUpload = image.upload;
+
+  if (!previousUpload || !previousUpload.data) {
+    return;
+  }
+
+  delete image.upload;
+
+  try {
+    data.save();
+  } catch {
+    image.upload = previousUpload;
+    showBackgroundImageUploadError();
+    return;
+  }
+
+  theme.background.image.render();
+  imageControls.upload.input.value = '';
+  imageControls.uploadFeedback.textContent = '';
+  imageControls.uploadFeedback.hidden = true;
+  updateBackgroundImageUpload();
 };
 
 themeSetting.disable = () => {
@@ -224,6 +350,8 @@ themeSetting.disable = () => {
       break;
 
   }
+
+  updateBackgroundImageUpload();
 
   switch (state.get.current().theme.layout.color.by) {
 
@@ -1344,12 +1472,25 @@ themeSetting.background = (parent) => {
       })
     },
     image: {
-      alert: new Alert({
-        iconName: 'info',
-        children: [
-          node(`p:${message.get('menuContentThemeBackgroundImageAlertPara1')}|class:small`),
-          complexNode({ tag: 'p', attr: [{ key: 'class', value: 'small' }], node: [(new Link({ text: message.get('menuContentThemeBackgroundImageAlertPara2'), href: supportLink.baseUrl + supportLink.page.localBackgroundImage.url, openNew: true })).link()] })
-        ]
+      upload: new Control_inputButton({
+        id: 'theme-background-image-upload',
+        type: 'file',
+        buttonHideInput: true,
+        labelText: message.get('menuContentThemeBackgroundImageUploadLabel'),
+        inputButtonStyle: ['line'],
+        action: () => {
+          uploadBackgroundImage(themeSetting.control.background.image.upload.input.files[0]);
+        }
+      }),
+      uploadStatus: form.helper({ text: '' }),
+      uploadFeedback: form.helper({ text: '' }),
+      uploadRemove: new Button({
+        text: message.get('menuContentThemeBackgroundImageUploadRemove'),
+        style: ['line'],
+        size: 'small',
+        func: () => {
+          removeBackgroundImageUpload();
+        }
       }),
       url: new Control_textarea({
         object: state.get.current(),
@@ -1638,6 +1779,13 @@ themeSetting.background = (parent) => {
     }
   };
 
+  themeSetting.control.background.image.upload.input.accept = 'image/*';
+  themeSetting.control.background.image.uploadStatus.setAttribute('aria-live', 'polite');
+  themeSetting.control.background.image.uploadFeedback.setAttribute('role', 'alert');
+  themeSetting.control.background.image.uploadStatus.hidden = true;
+  themeSetting.control.background.image.uploadFeedback.hidden = true;
+  updateBackgroundImageUpload();
+
   const themeBackgroundColorArea = node('div', [
     themeSetting.control.background.color.wrap()
   ]);
@@ -1649,7 +1797,10 @@ themeSetting.background = (parent) => {
   ]);
 
   const themeBackgroundImageArea = node('div', [
-    themeSetting.control.background.image.alert.wrap(),
+    themeSetting.control.background.image.upload.wrap(),
+    themeSetting.control.background.image.uploadStatus,
+    themeSetting.control.background.image.uploadFeedback,
+    themeSetting.control.background.image.uploadRemove.wrap(),
     themeSetting.control.background.image.url.wrap(),
     themeSetting.control.background.image.urlHelper.wrap(),
     themeSetting.control.background.image.blur.wrap(),

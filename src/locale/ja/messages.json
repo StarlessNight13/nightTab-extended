@@ -639,13 +639,17 @@
     "message": "背景グラデーション終了",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "ローカル画像は使用できなくなりました。画像はオンラインのどこかでホストする必要があります。",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "画像を選択（最大 2 MiB）",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "なぜこれが変わったのですか？",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "アップロードした画像を削除",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "この画像は使用できません。無効、2 MiB 超過、またはブラウザーの空きストレージ不足の可能性があります。",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

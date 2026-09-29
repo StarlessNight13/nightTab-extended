@@ -639,13 +639,17 @@
     "message": "पृष्ठभूमि ढाल अंत",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "स्थानीय छवियों का अब उपयोग नहीं किया जा सकता है। छवियों को कहीं ऑनलाइन होस्ट किया जाना चाहिए।",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "छवि चुनें (अधिकतम 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "यह क्यों बदल गया है?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "अपलोड की गई छवि हटाएँ",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "इस छवि का उपयोग नहीं हो सका। यह अमान्य हो सकती है, 2 MiB से बड़ी हो सकती है या ब्राउज़र के उपलब्ध स्टोरेज से अधिक जगह ले सकती है।",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

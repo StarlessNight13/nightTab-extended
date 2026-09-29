@@ -639,13 +639,17 @@
     "message": "Конец фонового градиента",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Локальные образы больше использовать нельзя. Изображения должны быть размещены где-нибудь в Интернете.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Выбрать изображение (макс. 2 МиБ)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Почему это изменилось?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Удалить загруженное изображение",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Не удалось использовать изображение. Возможно, оно повреждено, превышает 2 МиБ или для него недостаточно места в хранилище браузера.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",

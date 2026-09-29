@@ -639,13 +639,17 @@
     "message": "Fim do gradiente de fundo",
     "description": "Range for background gradient angle right."
   },
-  "menuContentThemeBackgroundImageAlertPara1": {
-    "message": "Imagens locais não podem mais ser usadas. As imagens devem ser hospedadas em algum lugar online.",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadLabel": {
+    "message": "Escolher imagem (máx. 2 MiB)",
+    "description": "Label for choosing a local background image."
   },
-  "menuContentThemeBackgroundImageAlertPara2": {
-    "message": "Por que isso mudou?",
-    "description": "Alert for image background."
+  "menuContentThemeBackgroundImageUploadRemove": {
+    "message": "Remover imagem enviada",
+    "description": "Button to remove uploaded background image."
+  },
+  "menuContentThemeBackgroundImageUploadError": {
+    "message": "Não foi possível usar esta imagem. Ela pode ser inválida, exceder 2 MiB ou ultrapassar o armazenamento disponível no navegador.",
+    "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {
     "message": "URL",
