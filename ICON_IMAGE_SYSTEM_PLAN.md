@@ -377,6 +377,116 @@ Do not add broad cross-origin permissions or canvas-based image processing only 
 
 Accent mode is intended primarily for icons and logo-like images, not photographs.
 
+## Phase 12A: Per-Bookmark Image Filters
+
+### Scope
+
+In this plan, image filtering means non-destructive visual effects on a custom
+image used as a bookmark's main visual (`display.visual.type: "image"` and
+`display.visual.image.url`). It does not mean filtering an image search
+catalog. It also does not replace the existing theme-background image controls
+for blur, grayscale, opacity, and vignette.
+
+Apply effects only to the dedicated `.bookmark-display-visual-image` layer.
+Never apply them to `.bookmark`, `.bookmark-display`, or another ancestor,
+which would also alter the bookmark name, focus treatment, and other content.
+
+### Data and defaults
+
+Add a serializable `display.visual.image.filters` object. Missing fields in old
+bookmarks, imports, or presets resolve to neutral values, so legacy images
+remain visually unchanged without rewriting their source URL.
+
+Recommended stored shape:
+
+```json
+{
+  "display": {
+    "visual": {
+      "type": "image",
+      "image": {
+        "url": "",
+        "filters": {
+          "grayscale": 0,
+          "sepia": 0,
+          "saturation": 100,
+          "brightness": 100,
+          "contrast": 100,
+          "hueRotation": 0,
+          "blur": 0
+        }
+      }
+    }
+  }
+}
+```
+
+| Setting | Neutral value | Allowed range | CSS operation |
+| --- | ---: | ---: | --- |
+| `grayscale` | 0 | 0–100 | `grayscale(%)` |
+| `sepia` | 0 | 0–100 | `sepia(%)` |
+| `saturation` | 100 | 0–200 | `saturate(%)` |
+| `brightness` | 100 | 50–150 | `brightness(%)` |
+| `contrast` | 100 | 50–150 | `contrast(%)` |
+| `hueRotation` | 0 | 0–360 | `hue-rotate(deg)` |
+| `blur` | 0 | 0–4 px | `blur(px)` |
+
+Use a fixed filter order and numeric bounds. Do not accept arbitrary CSS filter
+strings from imported data. Keep the stored URL and image bytes untouched; do
+not use canvas processing, uploads, remote services, or additional permissions.
+Compose the CSS value in this order: grayscale, sepia, saturation, hue rotation,
+brightness, contrast, blur.
+
+### UI and rendering
+
+1. Add a collapsed “Image filters” section to the bookmark visual editor. Show
+   it only when the image visual is selected. Provide labeled sliders for the
+   settings above and a one-action Reset filters control.
+2. Use the existing slider controls, `bookmarkMinMax`, and locale-message
+   conventions. The controls must have stable IDs, keyboard support, visible
+   focus, and accessible labels/value text.
+3. Update `bookmarkDefault` with neutral defaults, and ensure state loading,
+   preset creation, copy/apply, and import/export preserve the fields. Do not
+   copy filter values to other bookmarks unless the user explicitly chooses an
+   image-filter apply action.
+4. Set a normalized CSS custom property on the image-visual element and apply
+   the filter there. Clear the property when values are neutral so existing
+   styles and old saved data keep their current output.
+5. Keep the live preview and saved tile on the shared `BookmarkTile` rendering
+   path. Define a deterministic interaction with Original, Monochrome, and
+   Accent appearance modes. For mask-based Accent assets, either support the
+   combination explicitly or disable only incompatible controls with an
+   accessible explanation; never silently flatten or rewrite the image.
+
+### Acceptance checks
+
+- A legacy bookmark with an image URL and no filter object renders unchanged.
+- Each slider updates the preview immediately, affects only the image pixels,
+  and persists after save/reload and export/import.
+- Reset returns every filter to its neutral value and removes the CSS filter.
+- Values below/above bounds and malformed imported values are clamped or
+  replaced with neutral values; no arbitrary CSS reaches the DOM.
+- Switching to Letter or Icon hides/disables image-only controls without
+  deleting the image URL or filter data.
+- Bookmark name, hover/focus colors, image crop, bookmark background, and the
+  separate theme-background filters are unaffected.
+- Test Original, Monochrome, Accent, transparent logos, photographs, missing
+  URLs, and broken URLs in both the editor preview and the final bookmark.
+- Confirm the feature works after reload and in development and production
+  builds for the supported Firefox and Chromium-based extension targets.
+
+### Test strategy
+
+- Unit-test defaulting, clamping, malformed imported values, and filter-string
+  composition using a pure helper.
+- Exercise the bookmark editor and saved tile in a real browser: choose an
+  image, change each filter, reset, reload, and verify the bookmark name and
+  image URL remain intact.
+- The repository currently has no `test` script. Add a focused automated test
+  command for the pure helper, and keep the browser acceptance steps above as
+  integration coverage rather than treating a successful webpack build as a
+  substitute for behavior tests.
+
 ## Phase 13: Live Preview
 
 All appearance and icon changes must update the existing bookmark preview immediately.
@@ -487,6 +597,8 @@ Test at least:
 - many Iconify icons;
 - many custom images;
 - mixed providers;
+- mixed image formats with neutral and non-neutral image filters;
+- repeated image-filter slider changes while editing;
 - repeated theme accent changes;
 - opening the icon picker;
 - searching and filtering the icon picker.
@@ -508,6 +620,10 @@ Verify at minimum:
 - Original mode works;
 - Monochrome mode works;
 - Accent mode works;
+- custom image filters apply only to the bookmark image layer;
+- neutral defaults preserve old image bookmark appearance;
+- invalid filter values cannot inject CSS or break bookmark rendering;
+- filter changes persist through save, reload, export, and import;
 - the theme accent updates Accent-mode visuals;
 - global appearance works;
 - per-bookmark override works;
@@ -534,16 +650,17 @@ Verify at minimum:
 11. Build the unified picker and search.
 12. Add Original, Monochrome, and Accent handling for SVG icons.
 13. Add Original and Monochrome handling for custom images.
-14. Add Accent handling for compatible images with mask/filter fallback.
-15. Connect Accent mode to the live theme accent.
-16. Add global defaults.
-17. Add per-bookmark overrides.
-18. Update live preview.
-19. Update apply-to-all behavior.
-20. Update import/export.
-21. Add robust visual fallbacks.
-22. Optimize catalog and provider loading.
-23. Test web, Chrome, and Firefox builds.
+14. Add per-bookmark image filter data, controls, and live preview updates.
+15. Add Accent handling for compatible images with mask/filter fallback.
+16. Connect Accent mode to the live theme accent.
+17. Add global defaults.
+18. Add per-bookmark overrides.
+19. Update live preview.
+20. Update apply-to-all behavior.
+21. Update import/export.
+22. Add robust visual fallbacks.
+23. Optimize catalog and provider loading.
+24. Test web, Chrome, and Firefox builds.
 
 ## Definition of Done
 
@@ -577,5 +694,9 @@ Accent
 ```
 
 Changing the theme accent must update all Accent-mode visuals without changing their saved source data.
+
+Custom bookmark image filters must update the preview and final bookmark without
+changing the source image, and neutral/missing filter settings must preserve
+legacy appearance.
 
 Existing nightTab users must not need to recreate bookmarks or manually migrate old backups.
