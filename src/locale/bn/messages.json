@@ -640,7 +640,7 @@
     "description": "Range for background gradient angle right."
   },
   "menuContentThemeBackgroundImageUploadLabel": {
-    "message": "ছবি বেছে নিন (সর্বোচ্চ 2 MiB)",
+    "message": "ছবি বেছে নিন (সর্বোচ্চ 20 MiB)",
     "description": "Label for choosing a local background image."
   },
   "menuContentThemeBackgroundImageUploadRemove": {
@@ -648,7 +648,7 @@
     "description": "Button to remove uploaded background image."
   },
   "menuContentThemeBackgroundImageUploadError": {
-    "message": "এই ছবি ব্যবহার করা যায়নি। এটি অবৈধ, 2 MiB-এর বেশি বা ব্রাউজারের উপলভ্য স্টোরেজের চেয়ে বড় হতে পারে।",
+    "message": "এই ছবি ব্যবহার করা যায়নি। এটি অবৈধ, 20 MiB-এর বেশি বা ব্রাউজারের উপলভ্য স্টোরেজের চেয়ে বড় হতে পারে।",
     "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {

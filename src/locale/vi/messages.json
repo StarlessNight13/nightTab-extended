@@ -640,7 +640,7 @@
     "description": "Range for background gradient angle right."
   },
   "menuContentThemeBackgroundImageUploadLabel": {
-    "message": "Chọn ảnh (tối đa 2 MiB)",
+    "message": "Chọn ảnh (tối đa 20 MiB)",
     "description": "Label for choosing a local background image."
   },
   "menuContentThemeBackgroundImageUploadRemove": {
@@ -648,7 +648,7 @@
     "description": "Button to remove uploaded background image."
   },
   "menuContentThemeBackgroundImageUploadError": {
-    "message": "Không thể sử dụng ảnh này. Ảnh có thể không hợp lệ, vượt quá 2 MiB hoặc vượt quá dung lượng lưu trữ còn trống của trình duyệt.",
+    "message": "Không thể sử dụng ảnh này. Ảnh có thể không hợp lệ, vượt quá 20 MiB hoặc vượt quá dung lượng lưu trữ còn trống của trình duyệt.",
     "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {

@@ -13,6 +13,7 @@ import { themePreset } from '../../themePreset';
 import { accentPreset } from '../../accentPreset';
 import { customTheme } from '../../customTheme';
 import { groupAndBookmark } from '../../groupAndBookmark';
+import { backgroundImageStorage, backgroundImageUploadLimit } from '../../backgroundImageStorage';
 
 import { supportSetting } from '../../menuContent/supportSetting';
 
@@ -62,8 +63,6 @@ themeSetting.control = {
   background: {}
 };
 
-const backgroundImageUploadLimit = 2 * 1024 * 1024;
-
 const updateBackgroundImageUpload = () => {
   const imageControls = themeSetting.control.background.image;
 
@@ -73,7 +72,7 @@ const updateBackgroundImageUpload = () => {
 
   const image = state.get.current().theme.background.image;
   const uploadedImage = image.upload;
-  const hasUpload = uploadedImage && uploadedImage.data;
+  const hasUpload = uploadedImage && (uploadedImage.data || uploadedImage.storageId);
   const imageBackgroundActive = state.get.current().theme.background.type === 'image';
 
   imageControls.uploadStatus.textContent = hasUpload && uploadedImage.name ? uploadedImage.name : '';
@@ -127,19 +126,24 @@ const uploadBackgroundImage = (file) => {
     const preview = new window.Image();
 
     preview.onerror = showBackgroundImageUploadError;
-    preview.onload = () => {
+    preview.onload = async () => {
       const image = state.get.current().theme.background.image;
       const previousUpload = image.upload;
-
-      image.upload = { name: file.name, data: reader.result };
+      let storageId;
 
       try {
+        storageId = await backgroundImageStorage.save(reader.result);
+        image.upload = { name: file.name, data: reader.result, storageId: storageId };
         data.save();
       } catch {
         if (previousUpload) {
           image.upload = previousUpload;
         } else {
           delete image.upload;
+        }
+
+        if (storageId) {
+          backgroundImageStorage.remove(storageId).catch(console.error);
         }
 
         showBackgroundImageUploadError();
@@ -166,7 +170,7 @@ const removeBackgroundImageUpload = () => {
   const image = state.get.current().theme.background.image;
   const previousUpload = image.upload;
 
-  if (!previousUpload || !previousUpload.data) {
+  if (!previousUpload || (!previousUpload.data && !previousUpload.storageId)) {
     return;
   }
 

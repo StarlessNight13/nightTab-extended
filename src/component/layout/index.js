@@ -20,6 +20,8 @@ layout.element = {
 };
 
 layout.area = {
+  resizeObserver: null,
+  resizeFrame: null,
   render: () => {
 
     layout.area.assemble();
@@ -28,7 +30,9 @@ layout.area = {
 
     body.appendChild(layout.element.layout);
 
-    const resize = new ResizeObserver((entries) => {
+    layout.area.disconnect();
+
+    layout.area.resizeObserver = new ResizeObserver((entries) => {
 
       const size = { sm: 550, md: 700, lg: 900, xl: 1100, xxl: 1600 };
 
@@ -52,13 +56,58 @@ layout.area = {
 
       });
 
-      state.get.current().layout.breakpoint = breakpoint;
+      if (layout.area.resizeFrame !== null) {
 
-      layout.breakpoint.render();
+        cancelAnimationFrame(layout.area.resizeFrame);
+
+        layout.area.resizeFrame = null;
+
+      }
+
+      const html = document.querySelector('html');
+
+      if (
+        state.get.current().layout.breakpoint === breakpoint &&
+        html.classList.contains('is-layout-breakpoint-' + breakpoint)
+      ) {
+
+        return;
+
+      }
+
+      // Breakpoint classes resize bookmarks, so apply them outside the observer's delivery cycle.
+      layout.area.resizeFrame = requestAnimationFrame(() => {
+
+        layout.area.resizeFrame = null;
+
+        state.get.current().layout.breakpoint = breakpoint;
+
+        layout.breakpoint.render();
+
+      });
 
     });
 
-    resize.observe(layout.element.bookmark);
+    layout.area.resizeObserver.observe(layout.element.bookmark);
+
+  },
+  disconnect: () => {
+
+    if (layout.area.resizeObserver) {
+
+      layout.area.resizeObserver.disconnect();
+
+      layout.area.resizeObserver = null;
+
+    }
+
+    if (layout.area.resizeFrame !== null) {
+
+      cancelAnimationFrame(layout.area.resizeFrame);
+
+      layout.area.resizeFrame = null;
+
+    }
 
   },
   assemble: () => {
@@ -121,6 +170,8 @@ layout.area = {
     clearChildNode(layout.element.layout);
   },
   remove: () => {
+    layout.area.disconnect();
+
     const body = document.querySelector('body');
 
     body.removeChild(layout.element.layout);

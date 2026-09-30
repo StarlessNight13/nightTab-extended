@@ -1,4 +1,5 @@
 import { state } from '../state';
+import { imageDataToBlob } from '../backgroundImageStorage';
 import { APP_NAME } from '../../constant';
 import { toolbar } from '../toolbar';
 import { bookmark } from '../bookmark';
@@ -114,23 +115,23 @@ theme.color = {
   render: () => {
     const html = document.querySelector('html');
 
-    let shades = (state.get.current().theme.color.contrast.end - state.get.current().theme.color.contrast.start) / (state.get.current().theme.color.shades - 1);
+    const shades = (state.get.current().theme.color.contrast.end - state.get.current().theme.color.contrast.start) / (state.get.current().theme.color.shades - 1);
 
     for (var type in state.get.current().theme.color.range) {
 
       for (var i = 0; i < state.get.current().theme.color.shades; i++) {
 
-        let hsl = JSON.parse(JSON.stringify(state.get.current().theme.color.range[type]));
+        const hsl = JSON.parse(JSON.stringify(state.get.current().theme.color.range[type]));
 
         hsl.l = Math.round((shades * i) + state.get.current().theme.color.contrast.start);
 
-        let rgb = convertColor.hsl.rgb(hsl);
+        const rgb = convertColor.hsl.rgb(hsl);
 
-        for (let key in rgb) {
+        for (const key in rgb) {
           html.style.setProperty(`--theme-${type}-${i + 1}-${key}`, rgb[key]);
         }
 
-        for (let key in hsl) {
+        for (const key in hsl) {
           html.style.setProperty(`--theme-${type}-${i + 1}-${key}`, hsl[key]);
         }
 
@@ -383,14 +384,56 @@ theme.background.area = {
 };
 
 theme.background.image = {
-  render: () => {
+  data: false,
+  url: false,
+  preview: false,
+  ready: false,
+  render: async () => {
 
     const html = document.querySelector('html');
     const uploadedImage = state.get.current().theme.background.image.upload;
 
+    if (theme.background.image.data !== (uploadedImage && uploadedImage.data)) {
+      if (theme.background.image.url) {
+        URL.revokeObjectURL(theme.background.image.url);
+      }
+
+      theme.background.image.data = uploadedImage && uploadedImage.data;
+      theme.background.image.url = isValidString(theme.background.image.data)
+        ? URL.createObjectURL(imageDataToBlob(theme.background.image.data))
+        : false;
+
+      theme.background.image.preview = false;
+      theme.background.image.ready = false;
+
+      if (theme.background.image.url) {
+        const url = theme.background.image.url;
+        const preview = new window.Image();
+
+        theme.background.image.preview = preview;
+        preview.src = url;
+
+        // Large uploads must be decoded before CSS paints the background on startup.
+        theme.background.image.ready = preview.decode().then(() => true, error => {
+          if (theme.background.image.url === url) {
+            theme.background.image.data = false;
+            console.error('Could not decode uploaded background image', error);
+          }
+
+          return false;
+        });
+      }
+    }
+
     if (uploadedImage && isValidString(uploadedImage.data)) {
 
-      html.style.setProperty('--theme-background-image', 'url("' + uploadedImage.data + '")');
+      const url = theme.background.image.url;
+
+      if (!(await theme.background.image.ready) || theme.background.image.url !== url) {
+        return;
+      }
+
+      html.style.setProperty('--theme-background-image', 'url("' + url + '")');
 
     } else if (isValidString(state.get.current().theme.background.image.url)) {
 

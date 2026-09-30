@@ -640,7 +640,7 @@
     "description": "Range for background gradient angle right."
   },
   "menuContentThemeBackgroundImageUploadLabel": {
-    "message": "Scegli immagine (max 2 MiB)",
+    "message": "Scegli immagine (max 20 MiB)",
     "description": "Label for choosing a local background image."
   },
   "menuContentThemeBackgroundImageUploadRemove": {
@@ -648,7 +648,7 @@
     "description": "Button to remove uploaded background image."
   },
   "menuContentThemeBackgroundImageUploadError": {
-    "message": "Impossibile usare questa immagine. Potrebbe non essere valida, superare 2 MiB o eccedere lo spazio disponibile nel browser.",
+    "message": "Impossibile usare questa immagine. Potrebbe non essere valida, superare 20 MiB o eccedere lo spazio disponibile nel browser.",
     "description": "Feedback for an image file that cannot be used."
   },
   "menuContentThemeBackgroundImageUrlLabel": {

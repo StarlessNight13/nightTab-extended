@@ -5,6 +5,7 @@ import { bookmark } from '../bookmark';
 import { menu } from '../menu';
 import { version } from '../version';
 import { update } from '../update';
+import { backgroundImageStorage } from '../backgroundImageStorage';
 import { APP_NAME } from '../../constant';
 
 import { Modal } from '../modal';
@@ -92,8 +93,10 @@ data.import = {
       successText: message.get('dataRestoreSuccessText'),
       cancelText: message.get('dataRestoreCancelText'),
       width: 'small',
-      successAction: () => {
-        if (data.import.state.setup.include || data.import.state.theme.include || data.import.state.bookmark.include) {
+      successAction: async () => {
+        const restoreState = JSON.parse(JSON.stringify(data.import.state));
+
+        if (restoreState.setup.include || restoreState.theme.include || restoreState.bookmark.include) {
           let dataToRestore = JSON.parse(dataToImport);
 
           if (dataToRestore.version !== version.number) {
@@ -102,7 +105,11 @@ data.import = {
             dataToRestore = data.update(dataToRestore);
           }
 
-          data.restore(dataToRestore);
+          if (restoreState.theme.include) {
+            await backgroundImageStorage.prepare(dataToRestore);
+          }
+
+          data.restore(dataToRestore, restoreState);
 
           data.save();
 
@@ -201,7 +208,9 @@ data.validate = {
   }
 };
 
-data.export = () => {
+data.exportData = async () => backgroundImageStorage.hydrate(data.load(), { portable: true });
+
+data.export = async () => {
   let timestamp = dateTime();
 
   const leadingZero = (value) => {
@@ -221,7 +230,7 @@ data.export = () => {
 
   const fileName = APP_NAME + ' ' + message.get('dataExportBackup') + ' - ' + timestamp + '.json';
 
-  const dataToExport = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data.load()));
+  const dataToExport = URL.createObjectURL(new Blob([JSON.stringify(await data.exportData())], { type: 'application/json' }));
 
   const link = document.createElement('a');
 
@@ -234,6 +243,8 @@ data.export = () => {
   document.querySelector('body').appendChild(link);
 
   link.click();
+
+  setTimeout(() => URL.revokeObjectURL(dataToExport), 1000);
 };
 
 data.remove = (key) => {
@@ -242,7 +253,7 @@ data.remove = (key) => {
 
 data.backup = (dataToBackup) => {
   if (dataToBackup) {
-    data.set(APP_NAME + 'Backup', JSON.stringify(dataToBackup));
+    data.set(APP_NAME + 'Backup', backgroundImageStorage.serialize(dataToBackup));
 
     console.log('data version ' + dataToBackup.version + ' backed up');
   }
@@ -258,20 +269,20 @@ data.update = (dataToUpdate) => {
   return dataToUpdate;
 };
 
-data.restore = (dataToRestore) => {
+data.restore = (dataToRestore, restoreState = data.import.state) => {
   if (dataToRestore) {
     console.log('data found to load');
 
-    if (data.import.state.setup.include) {
+    if (restoreState.setup.include) {
       state.set.restore.setup(dataToRestore);
     }
 
-    if (data.import.state.theme.include) {
+    if (restoreState.theme.include) {
       state.set.restore.theme(dataToRestore);
     }
 
-    if (data.import.state.bookmark.include) {
-      switch (data.import.state.bookmark.type) {
+    if (restoreState.bookmark.include) {
+      switch (restoreState.bookmark.type) {
         case 'restore':
           bookmark.restore(dataToRestore);
           break;
@@ -288,13 +299,31 @@ data.restore = (dataToRestore) => {
   }
 };
 
+data.releaseBackgroundImages = (previous, snapshot) => {
+  let backup;
+
+  try {
+    backup = JSON.parse(data.get(APP_NAME + 'Backup'));
+  } catch {
+    // Retain images when an unreadable backup might still reference them.
+    return Promise.resolve();
+  }
+
+  return backgroundImageStorage.releaseUnused(previous, snapshot, backup);
+};
+
 data.save = () => {
-  data.set(APP_NAME, JSON.stringify({
+  const previous = data.load();
+  const snapshot = {
     [APP_NAME]: true,
     version: version.number,
     state: state.get.current(),
     bookmark: bookmark.all
-  }));
+  };
+
+  data.set(APP_NAME, backgroundImageStorage.serialize(snapshot));
+
+  data.releaseBackgroundImages(previous, snapshot).catch(console.error);
 };
 
 data.load = () => {
@@ -314,12 +343,18 @@ data.load = () => {
 };
 
 data.wipe = {
-  all: () => {
+  all: async () => {
+    const previous = data.load();
+
     data.remove(APP_NAME);
+
+    await data.releaseBackgroundImages(previous, null).catch(console.error);
 
     data.reload.render();
   },
-  partial: () => {
+  partial: async () => {
+    const previous = data.load();
+
     bookmark.reset();
 
     data.set(APP_NAME, JSON.stringify({
@@ -328,6 +363,8 @@ data.wipe = {
       state: state.get.default(),
       bookmark: bookmark.all
     }));
+
+    await data.releaseBackgroundImages(previous, data.load()).catch(console.error);
 
     data.reload.render();
   }
@@ -455,8 +492,16 @@ data.feedback.animation = {
   }
 };
 
-data.init = () => {
-  data.restore(data.load());
+data.init = async () => {
+  const snapshot = data.load();
+
+  try {
+    await backgroundImageStorage.hydrate(snapshot);
+  } catch (error) {
+    console.error('Could not load uploaded background image', error);
+  }
+
+  data.restore(snapshot);
 };
 
 export { data };

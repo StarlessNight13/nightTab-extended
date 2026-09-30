@@ -101,8 +101,8 @@ dataSetting.backup = (parent) => {
   dataSetting.control.backup.copy = new Button({
     text: message.get('menuContentDataBackupClipboard'),
     style: ['line'],
-    func: () => {
-      navigator.clipboard.writeText(JSON.stringify(data.load()));
+    func: async () => {
+      navigator.clipboard.writeText(JSON.stringify(await data.exportData()));
     }
   });
 
