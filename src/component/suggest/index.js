@@ -21,6 +21,7 @@ export const Suggest = function ({
   };
 
   this.type = type;
+  this.request = 0;
 
   this.element = {
     suggest: node('div|class:suggest'),
@@ -30,51 +31,48 @@ export const Suggest = function ({
 
   this.open = async () => {
 
+    const request = ++this.request;
+
     const provider = this.type;
 
     const term = this.searchTerm();
 
     const results = await bookmarkIcon.search(provider, term);
 
-    if (provider !== this.type || term !== this.searchTerm()) {
+    if (request !== this.request || provider !== this.type || term !== this.searchTerm()) {
       return;
     }
 
     if (results.length > 0) {
 
-      if (this.state.open) {
+      const body = document.querySelector('body');
 
-        this.style();
+      this.style();
 
-        clearChildNode(this.element.list);
+      clearChildNode(this.element.list);
 
-        this.populateList(results);
+      this.populateList(results);
 
-      } else {
-
-        const body = document.querySelector('body');
-
-        this.style();
+      if (!this.element.suggest.isConnected) {
 
         this.element.suggest.classList.add('is-transparent');
-
-        clearChildNode(this.element.list);
-
-        this.populateList(results);
 
         body.appendChild(this.element.suggest);
 
         getComputedStyle(this.element.suggest).opacity;
 
-        this.element.suggest.classList.remove('is-transparent');
+      }
 
-        this.element.suggest.classList.add('is-opaque');
+      this.element.suggest.classList.remove('is-transparent');
 
+      this.element.suggest.classList.add('is-opaque');
+
+      if (!this.state.open) {
         this.bind.add();
 
-        this.state.open = true;
-
       }
+
+      this.state.open = true;
 
     } else {
 
@@ -91,9 +89,21 @@ export const Suggest = function ({
 
   this.close = () => {
 
+    clearTimeout(this.timer);
+
+    this.request++;
+
+    this.state.open = false;
+
+    this.bind.remove();
+
     this.element.suggest.classList.remove('is-opaque');
 
     this.element.suggest.classList.add('is-transparent');
+
+    if (getComputedStyle(this.element.suggest).opacity == 0) {
+      this.element.suggest.remove();
+    }
 
   };
 
@@ -115,6 +125,10 @@ export const Suggest = function ({
 
   this.bind.add = () => {
 
+    window.addEventListener('scroll', this.style, true);
+
+    window.addEventListener('resize', this.style);
+
     window.addEventListener('mouseup', this.clickOut);
 
     window.addEventListener('keydown', this.esc);
@@ -124,6 +138,10 @@ export const Suggest = function ({
   };
 
   this.bind.remove = () => {
+
+    window.removeEventListener('scroll', this.style, true);
+
+    window.removeEventListener('resize', this.style);
 
     window.removeEventListener('mouseup', this.clickOut);
 
@@ -138,7 +156,7 @@ export const Suggest = function ({
     const inputRect = input.getBoundingClientRect();
 
     const box = {
-      left: inputRect.left,
+      left: inputRect.left + window.scrollX,
       top: inputRect.bottom + window.scrollY,
       width: inputRect.width
     };
@@ -149,7 +167,7 @@ export const Suggest = function ({
 
       box.width = widthElementRect.width;
 
-      box.left = widthElementRect.left;
+      box.left = widthElementRect.left + window.scrollX;
 
     }
 
@@ -163,19 +181,13 @@ export const Suggest = function ({
 
   this.assemble = () => {
 
-    const body = document.querySelector('body');
-
     this.element.suggest.appendChild(this.element.list);
 
     this.element.suggest.addEventListener('transitionend', (event) => {
 
-      if (event.propertyName === 'opacity' && getComputedStyle(this.element.suggest).opacity == 0) {
+      if (event.target === this.element.suggest && event.propertyName === 'opacity' && !this.state.open && getComputedStyle(this.element.suggest).opacity == 0) {
 
-        body.removeChild(this.element.suggest);
-
-        this.bind.remove();
-
-        this.state.open = false;
+        this.element.suggest.remove();
 
       }
 
@@ -205,9 +217,9 @@ export const Suggest = function ({
 
     results.forEach((item) => {
 
-      let li = node('li|class:suggest-list-item');
+      const li = node('li|class:suggest-list-item');
 
-      let resultItem = new Button({
+      const resultItem = new Button({
         text: false,
         style: ['link', 'ring'],
         classList: ['suggest-item'],
@@ -216,9 +228,9 @@ export const Suggest = function ({
         }
       });
 
-      let icon = bookmarkIcon.renderData(item.prefix, item.data, 'suggest-icon');
+      const icon = bookmarkIcon.renderData(item.prefix, item.data, 'suggest-icon');
 
-      let text = node('span|class:suggest-icon-text');
+      const text = node('span|class:suggest-icon-text');
 
       text.textContent = item.label;
 

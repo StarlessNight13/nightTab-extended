@@ -15,13 +15,17 @@ const loadProvider = (provider) => {
     ]).then(([icons, tags]) => ({
       icons: icons.default,
       tags: tags.default,
-      items: Object.entries(icons.default).map(([name, data]) => ({
-        name: name,
-        label: name.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-        prefix: 'lucide',
-        search: [name, ...(tags.default[name] || [])].join(' ').toLowerCase(),
-        data: data
-      }))
+      items: Object.entries(icons.default).map(([name, data]) => {
+        const label = name.split('-').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+        return {
+          name: name,
+          label: label,
+          prefix: 'lucide',
+          search: [name, label, ...(tags.default[name] || [])].join(' ').toLowerCase(),
+          data: data
+        };
+      })
     })),
     'simple-icons': () => import('simple-icons').then((module) => {
       const source = module.default ? module.default : module;
