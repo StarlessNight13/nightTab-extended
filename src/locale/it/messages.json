@@ -639,6 +639,18 @@
     "message": "Fine sfumatura di sfondo",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "Origine dell'immagine",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "Immagine online (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "Immagine locale (caricamento)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "Scegli immagine (max 20 MiB)",
     "description": "Label for choosing a local background image."

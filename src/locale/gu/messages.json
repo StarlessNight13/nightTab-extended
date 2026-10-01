@@ -639,6 +639,18 @@
     "message": "પૃષ્ઠભૂમિ ઢાળ અંત",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "છબીનો સ્રોત",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "ઑનલાઇન છબી (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "સ્થાનિક છબી (અપલોડ)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "છબી પસંદ કરો (મહત્તમ 20 MiB)",
     "description": "Label for choosing a local background image."

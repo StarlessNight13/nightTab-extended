@@ -639,6 +639,18 @@
     "message": "pagtatapos ng gradient ng background",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "Pinagmulan ng larawan",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "Online na larawan (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "Lokal na larawan (upload)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "Pumili ng larawan (max. 20 MiB)",
     "description": "Label for choosing a local background image."

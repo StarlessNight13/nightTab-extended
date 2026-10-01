@@ -639,6 +639,18 @@
     "message": "पृष्ठभूमि ढाल अंत",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "छवि का स्रोत",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "ऑनलाइन छवि (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "स्थानीय छवि (अपलोड)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "छवि चुनें (अधिकतम 20 MiB)",
     "description": "Label for choosing a local background image."

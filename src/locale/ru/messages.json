@@ -639,6 +639,18 @@
     "message": "Конец фонового градиента",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "Источник изображения",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "Изображение из интернета (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "Локальное изображение (загрузка)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "Выбрать изображение (макс. 20 МиБ)",
     "description": "Label for choosing a local background image."

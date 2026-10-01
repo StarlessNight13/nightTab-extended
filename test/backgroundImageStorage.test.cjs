@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { createBackgroundImageStorage, imageDataToBlob } = require('../src/component/backgroundImageStorage/index.cjs');
+const { createBackgroundImageStorage, imageDataToBlob, getBackgroundImageSource } = require('../src/component/backgroundImageStorage/index.cjs');
 
 const snapshot = (upload, custom = []) => ({
   state: { theme: { background: { image: { upload } }, custom: { all: custom } } },
@@ -101,6 +101,36 @@ test('keeps existing embedded background images compatible', async () => {
   assert.deepEqual(restored, original);
   assert.equal(reads(), 0);
   assert.equal(await storage.hydrate(false), false);
+});
+
+test('preserves the image source used by older themes without a source setting', () => {
+  assert.equal(getBackgroundImageSource({ url: 'https://example.com/background.png' }), 'url');
+  assert.equal(getBackgroundImageSource({ upload: { data: '' } }), 'url');
+  assert.equal(getBackgroundImageSource({ upload: { data: 'data:image/png;base64,existing' } }), 'upload');
+  assert.equal(getBackgroundImageSource({ upload: { data: '', storageId: 'stored-image' } }), 'upload');
+});
+
+test('keeps an inactive upload when saving, reloading, and exporting an online image selection', async () => {
+  const { storage } = memoryStorage();
+  const image = 'data:image/png;base64,stored-background';
+  const storageId = await storage.save(image);
+  const original = snapshot({ name: 'background.png', data: image, storageId });
+  original.state.theme.background.image.source = 'url';
+  original.state.theme.background.image.url = 'https://example.com/background.png';
+
+  const restored = await storage.hydrate(JSON.parse(storage.serialize(original)));
+  assert.equal(getBackgroundImageSource(restored.state.theme.background.image), 'url');
+  assert.equal(restored.state.theme.background.image.upload.data, image);
+
+  const exported = await storage.hydrate(JSON.parse(storage.serialize(restored)), { portable: true });
+  const destination = memoryStorage();
+  await destination.storage.prepare(exported);
+  const imported = await destination.storage.hydrate(JSON.parse(destination.storage.serialize(exported)));
+  assert.equal(getBackgroundImageSource(imported.state.theme.background.image), 'url');
+
+  imported.state.theme.background.image.source = 'upload';
+  assert.equal(getBackgroundImageSource(imported.state.theme.background.image), 'upload');
+  assert.equal(imported.state.theme.background.image.upload.data, image);
 });
 
 test('refuses to export a backup with a missing image', async () => {

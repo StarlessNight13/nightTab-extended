@@ -639,6 +639,18 @@
     "message": "Закінчення градієнта фону",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "Джерело зображення",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "Зображення з інтернету (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "Локальне зображення (завантаження)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "Вибрати зображення (макс. 20 МіБ)",
     "description": "Label for choosing a local background image."

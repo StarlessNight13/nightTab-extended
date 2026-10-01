@@ -639,6 +639,18 @@
     "message": "পটভূমি গ্রেডিয়েন্ট শেষ",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "ছবির উৎস",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "অনলাইন ছবি (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "স্থানীয় ছবি (আপলোড)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "ছবি বেছে নিন (সর্বোচ্চ 20 MiB)",
     "description": "Label for choosing a local background image."

@@ -639,6 +639,18 @@
     "message": "Kết thúc gradient nền",
     "description": "Range for background gradient angle right."
   },
+  "menuContentThemeBackgroundImageSourceLabel": {
+    "message": "Nguồn ảnh",
+    "description": "Label for selecting a background image source."
+  },
+  "menuContentThemeBackgroundImageSourceUrl": {
+    "message": "Ảnh trực tuyến (URL)",
+    "description": "Option for an online background image URL."
+  },
+  "menuContentThemeBackgroundImageSourceUpload": {
+    "message": "Ảnh cục bộ (tải lên)",
+    "description": "Option for uploading a local background image."
+  },
   "menuContentThemeBackgroundImageUploadLabel": {
     "message": "Chọn ảnh (tối đa 20 MiB)",
     "description": "Label for choosing a local background image."

@@ -13,7 +13,7 @@ import { themePreset } from '../../themePreset';
 import { accentPreset } from '../../accentPreset';
 import { customTheme } from '../../customTheme';
 import { groupAndBookmark } from '../../groupAndBookmark';
-import { backgroundImageStorage, backgroundImageUploadLimit } from '../../backgroundImageStorage';
+import { backgroundImageStorage, backgroundImageUploadLimit, getBackgroundImageSource } from '../../backgroundImageStorage';
 
 import { supportSetting } from '../../menuContent/supportSetting';
 
@@ -74,17 +74,32 @@ const updateBackgroundImageUpload = () => {
   const uploadedImage = image.upload;
   const hasUpload = uploadedImage && (uploadedImage.data || uploadedImage.storageId);
   const imageBackgroundActive = state.get.current().theme.background.type === 'image';
+  const uploadActive = imageBackgroundActive && getBackgroundImageSource(image) === 'upload';
 
   imageControls.uploadStatus.textContent = hasUpload && uploadedImage.name ? uploadedImage.name : '';
   imageControls.uploadStatus.hidden = !hasUpload || !uploadedImage.name;
 
   if (imageBackgroundActive) {
+    imageControls.source.enable();
+  } else {
+    imageControls.source.disable();
+  }
+
+  if (uploadActive) {
     imageControls.upload.enable();
   } else {
     imageControls.upload.disable();
   }
 
-  imageControls.uploadRemove.button.disabled = !hasUpload || !imageBackgroundActive;
+  if (imageBackgroundActive && !uploadActive) {
+    imageControls.url.enable();
+    imageControls.urlHelper.enable();
+  } else {
+    imageControls.url.disable();
+    imageControls.urlHelper.disable();
+  }
+
+  imageControls.uploadRemove.button.disabled = !hasUpload || !uploadActive;
 };
 
 const showBackgroundImageUploadError = () => {
@@ -1360,6 +1375,9 @@ themeSetting.opacity = (parent) => {
 themeSetting.background = (parent) => {
 
   const supportLink = supportSetting.supportPage.get();
+  const backgroundImage = state.get.current().theme.background.image;
+
+  backgroundImage.source = getBackgroundImageSource(backgroundImage);
 
   const updateVideoPlayState = () => {
 
@@ -1476,6 +1494,22 @@ themeSetting.background = (parent) => {
       })
     },
     image: {
+      source: new Control_radio({
+        object: state.get.current(),
+        radioGroup: [
+          { id: 'theme-background-image-source-url', labelText: message.get('menuContentThemeBackgroundImageSourceUrl'), value: 'url' },
+          { id: 'theme-background-image-source-upload', labelText: message.get('menuContentThemeBackgroundImageSourceUpload'), value: 'upload' }
+        ],
+        label: message.get('menuContentThemeBackgroundImageSourceLabel'),
+        groupName: 'theme-background-image-source',
+        path: 'theme.background.image.source',
+        action: () => {
+          themeSetting.control.background.image.sourceCollapse.update();
+          updateBackgroundImageUpload();
+          theme.background.image.render();
+          data.save();
+        }
+      }),
       upload: new Control_inputButton({
         id: 'theme-background-image-upload',
         type: 'file',
@@ -1800,13 +1834,36 @@ themeSetting.background = (parent) => {
     themeSetting.control.background.gradient.end.wrap()
   ]);
 
-  const themeBackgroundImageArea = node('div', [
+  const themeBackgroundImageUploadArea = node('div', [
     themeSetting.control.background.image.upload.wrap(),
     themeSetting.control.background.image.uploadStatus,
     themeSetting.control.background.image.uploadFeedback,
-    themeSetting.control.background.image.uploadRemove.wrap(),
+    themeSetting.control.background.image.uploadRemove.wrap()
+  ]);
+
+  const themeBackgroundImageUrlArea = node('div', [
     themeSetting.control.background.image.url.wrap(),
-    themeSetting.control.background.image.urlHelper.wrap(),
+    themeSetting.control.background.image.urlHelper.wrap()
+  ]);
+
+  themeSetting.control.background.image.sourceCollapse = new Collapse({
+    type: 'radio',
+    radioGroup: themeSetting.control.background.image.source,
+    target: [
+      { id: 'url', content: themeBackgroundImageUrlArea },
+      { id: 'upload', content: themeBackgroundImageUploadArea }
+    ]
+  });
+
+  const themeBackgroundImageArea = node('div', [
+    themeSetting.control.background.image.source.wrap(),
+    form.wrap({
+      children: [
+        form.indent({
+          children: [themeSetting.control.background.image.sourceCollapse.collapse()]
+        })
+      ]
+    }),
     themeSetting.control.background.image.blur.wrap(),
     themeSetting.control.background.image.grayscale.wrap(),
     themeSetting.control.background.image.scale.wrap(),

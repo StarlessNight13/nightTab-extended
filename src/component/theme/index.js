@@ -1,5 +1,5 @@
 import { state } from '../state';
-import { imageDataToBlob } from '../backgroundImageStorage';
+import { imageDataToBlob, getBackgroundImageSource } from '../backgroundImageStorage';
 import { APP_NAME } from '../../constant';
 import { toolbar } from '../toolbar';
 import { bookmark } from '../bookmark';
@@ -391,7 +391,9 @@ theme.background.image = {
   render: async () => {
 
     const html = document.querySelector('html');
-    const uploadedImage = state.get.current().theme.background.image.upload;
+    const image = state.get.current().theme.background.image;
+    const source = getBackgroundImageSource(image);
+    const uploadedImage = source === 'upload' && image.upload;
 
     if (theme.background.image.data !== (uploadedImage && uploadedImage.data)) {
       if (theme.background.image.url) {
@@ -435,9 +437,9 @@ theme.background.image = {
 
       html.style.setProperty('--theme-background-image', 'url("' + url + '")');
 
-    } else if (isValidString(state.get.current().theme.background.image.url)) {
+    } else if (source === 'url' && isValidString(image.url)) {
 
-      const allUrls = trimString(state.get.current().theme.background.image.url).split(/\s+/).filter((item) => { return item != ''; });
+      const allUrls = trimString(image.url).split(/\s+/).filter((item) => { return item != ''; });
 
       html.style.setProperty('--theme-background-image', 'url("' + allUrls[Math.floor(Math.random() * allUrls.length)] + '")');
 

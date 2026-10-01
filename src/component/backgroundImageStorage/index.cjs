@@ -1,5 +1,18 @@
 const backgroundImageUploadLimit = 20 * 1024 * 1024;
 
+const getBackgroundImageSource = image => {
+  if (image && (image.source === 'url' || image.source === 'upload')) {
+    return image.source;
+  }
+
+  const upload = image && image.upload;
+
+  // Older themes selected an upload whenever one was present.
+  return upload && (upload.storageId || (typeof upload.data === 'string' && upload.data.trim()))
+    ? 'upload'
+    : 'url';
+};
+
 const imageDataToBlob = image => {
   const comma = image.indexOf(',');
   const metadata = image.slice(5, comma);
@@ -142,4 +155,4 @@ const backgroundImageStorage = createBackgroundImageStorage({
   remove: id => transaction('readwrite', store => store.delete(id))
 });
 
-module.exports = { backgroundImageStorage, backgroundImageUploadLimit, createBackgroundImageStorage, imageDataToBlob };
+module.exports = { backgroundImageStorage, backgroundImageUploadLimit, createBackgroundImageStorage, imageDataToBlob, getBackgroundImageSource };
