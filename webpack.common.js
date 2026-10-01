@@ -59,6 +59,12 @@ module.exports = {
         from: './src/initialBackground.js',
         to: './initialBackground.js'
       }, {
+        from: './license',
+        to: './LICENSE.txt'
+      }, {
+        from: './NOTICE.md',
+        to: './NOTICE.md'
+      }, {
         from: './node_modules/lucide-static/LICENSE',
         to: './licenses/lucide.txt'
       }, {

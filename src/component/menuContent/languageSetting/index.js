@@ -2,7 +2,7 @@ import { message } from '../../message';
 
 import { state } from '../../state';
 
-import { APP_NAME } from '../../../constant';
+import { APP_REPOSITORY_URL } from '../../../constant';
 
 import { Alert } from '../../alert';
 import { Link } from '../../link';
@@ -51,7 +51,7 @@ languageSetting.language = (parent) => {
 
   languageSetting.control.link = new Link({
     text: message.get('menuContentLanguageAlertLink'),
-    href: `https://github.com/zombieFox/${APP_NAME}`,
+    href: APP_REPOSITORY_URL,
     openNew: true
   });
 

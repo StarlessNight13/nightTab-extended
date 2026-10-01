@@ -1,14 +1,14 @@
 {
   "appName": {
-    "message": "nightTab",
+    "message": "NightlyTab",
     "description": "The name of the extension, displayed in the web store."
   },
   "appShortName": {
-    "message": "nightTab",
+    "message": "NightlyTab",
     "description": "The name of the extension, displayed in the web store."
   },
   "appDescription": {
-    "message": "Sesuaikan warna aksen, reka letak, gaya, latar belakang dan penanda halaman dalam nightTab.",
+    "message": "Sesuaikan warna aksen, reka letak, gaya, latar belakang dan penanda halaman dalam NightlyTab.",
     "description": "The description of the extension, displayed in the web store."
   },
   "menuNavDebugLabel": {
@@ -1880,7 +1880,7 @@
     "description": "Support link to project wiki."
   },
   "menuContentSupportPara": {
-    "message": "Untuk lebih banyak sokongan atau maklum balas:",
+    "message": "The guides below are from the original nightTab project. Some details may not cover NightlyTab-specific changes.",
     "description": "Paragraph to get more support or provide feedback."
   },
   "menuContentSupportLink1": {
@@ -1892,32 +1892,32 @@
     "description": "Link to the project wiki."
   },
   "menuContentCoffeePara": {
-    "message": "{appName} adalah percuma, penghargaan dialu-alukan dalam bentuk kopi!",
-    "description": "Paragraph to explain the project is free."
+    "message": "NightlyTab is maintained independently. This link supports the original nightTab developer, zombieFox.",
+    "description": "Paragraph clarifying that the donation link supports the original nightTab developer."
   },
   "menuContentCoffeeButton": {
-    "message": "Belikan saya kopi",
-    "description": "Link to buy me a coffee to support the project."
+    "message": "Support the original nightTab developer",
+    "description": "Link to support the original nightTab developer."
   },
   "menuContentAppPara1": {
-    "message": "Kongsi persediaan anda dengan komuniti.",
-    "description": "Paragraph on where to share with the community."
+    "message": "NightlyTab is an independent, unofficial fork of nightTab by zombieFox. It is released under GPL-3.0 with no warranty.",
+    "description": "Statement identifying NightlyTab as an independent GPL-3.0 fork without warranty."
   },
   "menuContentAppLink1": {
-    "message": "Ditemui di Reddit/r/{appName}.",
-    "description": "Link to the community on Reddit."
+    "message": "Original nightTab project by zombieFox.",
+    "description": "Link to the original nightTab project by zombieFox."
   },
   "menuContentAppPara2": {
-    "message": "Projek ini adalah sumber terbuka.",
-    "description": "Paragraph on this project being open source."
+    "message": "NightlyTab source, changes, and license are available here.",
+    "description": "Paragraph pointing to NightlyTab source, changes, and license."
   },
   "menuContentAppLink2": {
-    "message": "Ditemui di GitHub.",
-    "description": "Link to project on GitHub."
+    "message": "NightlyTab source and support on GitHub.",
+    "description": "Link to the NightlyTab source and support repository."
   },
   "menuContentAppLink3": {
-    "message": "Lesen Awam Am GNU v3.0.",
-    "description": "Link to project project licence."
+    "message": "GNU General Public License v3.0.",
+    "description": "Link to the NightlyTab GPL license."
   },
   "bookmarkTileControlLeft": {
     "message": "Alihkan penanda halaman ini ke kiri",
@@ -2203,15 +2203,42 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
-  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "Skala kelabu", "description": "Label for the bookmark image grayscale filter." },
-  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "Sepia", "description": "Label for the bookmark image sepia filter." },
-  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "Ketepuan", "description": "Label for the bookmark image saturation filter." },
-  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "Kecerahan", "description": "Label for the bookmark image brightness filter." },
-  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "Kontras", "description": "Label for the bookmark image contrast filter." },
-  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "Putaran rona", "description": "Label for the bookmark image hue rotation filter." },
-  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "Kabur", "description": "Label for the bookmark image blur filter." },
-  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "Tetapkan semula penapis imej", "description": "Button to reset bookmark image filters." },
-  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "Penapis imej", "description": "Disclosure summary for bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": {
+    "message": "Skala kelabu",
+    "description": "Label for the bookmark image grayscale filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterSepia": {
+    "message": "Sepia",
+    "description": "Label for the bookmark image sepia filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterSaturation": {
+    "message": "Ketepuan",
+    "description": "Label for the bookmark image saturation filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterBrightness": {
+    "message": "Kecerahan",
+    "description": "Label for the bookmark image brightness filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterContrast": {
+    "message": "Kontras",
+    "description": "Label for the bookmark image contrast filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": {
+    "message": "Putaran rona",
+    "description": "Label for the bookmark image hue rotation filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterBlur": {
+    "message": "Kabur",
+    "description": "Label for the bookmark image blur filter."
+  },
+  "bookmarkFormDisplayVisualImageFiltersReset": {
+    "message": "Tetapkan semula penapis imej",
+    "description": "Button to reset bookmark image filters."
+  },
+  "bookmarkFormDisplayVisualImageFiltersSummary": {
+    "message": "Penapis imej",
+    "description": "Disclosure summary for bookmark image filters."
+  },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "Bayangan visual",
     "description": "Range for bookmark tile visual shadow."

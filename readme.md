@@ -1,56 +1,42 @@
-# [![nightTab](asset/banner/banner-1400-560.png)](https://zombiefox.github.io/nightTab/)
+# NightlyTab
 
-A neutral new tab page accented with a chosen colour. Customise the layout, style, background and bookmarks in nightTab -- a custom start page.
+NightlyTab is a customizable browser new-tab page for bookmarks, layouts, themes, and backgrounds.
 
-| [See the demo in action](https://zombiefox.github.io/nightTab/) | [Install nightTab Extension](https://chrome.google.com/webstore/detail/nighttab/hdpcadigjkbcpnlcpbcohpafiaefanki) | [Install nightTab Add On](https://addons.mozilla.org/en-GB/firefox/addon/nighttab/) | [Buy me a coffee](https://www.buymeacoffee.com/zombieFox/) | [Join the community](https://www.reddit.com/r/nighttab/) |
-|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| [<img src="./src/icon/icon-48.png" width="48px" height="48px">](https://zombiefox.github.io/nightTab/) | [![Chrome](asset/logo/chrome-48.png)](https://chrome.google.com/webstore/detail/nighttab/hdpcadigjkbcpnlcpbcohpafiaefanki) | [![Firefox](asset/logo/firefox-48.png)](https://addons.mozilla.org/en-GB/firefox/addon/nighttab/) | [![coffee](asset/logo/bymeacoffee-48.png)](https://www.buymeacoffee.com/zombieFox/) | [![Reddit](asset/logo/reddit-48.png)](https://www.reddit.com/r/nighttab/) |
+> **Fork notice:** NightlyTab is an independent, unofficial fork of [nightTab by zombieFox](https://github.com/zombieFox/nightTab). This project is not affiliated with or endorsed by the upstream project. The NightlyTab fork identity and release metadata were prepared on 2026-10-01; see the repository history for the dates and details of code changes.
 
-# Support
+The source and this fork's modifications are distributed under **GNU GPL-3.0-only**. See [LICENSE](license) and [NOTICE.md](NOTICE.md). NightlyTab is provided without warranty under the license terms.
 
-- [Project goals](https://github.com/zombieFox/nightTab/wiki/Project-goals)
-- [Applying bookmark settings to all](https://github.com/zombieFox/nightTab/wiki/Applying-bookmark-settings-to-all)
-- [Browser support](https://github.com/zombieFox/nightTab/wiki/Browser-support)
-- [Cookies and cache](https://github.com/zombieFox/nightTab/wiki/Cookies-and-cache)
-- [Data backup and restore](https://github.com/zombieFox/nightTab/wiki/Data-backup-and-restore)
-- [Local background image](https://github.com/zombieFox/nightTab/wiki/Local-background-image)
-- [Protected URLs](https://github.com/zombieFox/nightTab/wiki/Protected-URLs)
-- [Recovering settings and bookmarks](https://github.com/zombieFox/nightTab/wiki/Recovering-settings-and-bookmarks)
-- [Resetting when opening the browser](https://github.com/zombieFox/nightTab/wiki/Resetting-when-opening-the-browser)
-- [Respecting your privacy](https://github.com/zombieFox/nightTab/wiki/Respecting-your-privacy)
-- [Setting a background video or image](https://github.com/zombieFox/nightTab/wiki/Setting-a-background-video-or-image)
-- [Setting nightTab as your Firefox homepage](https://github.com/zombieFox/nightTab/wiki/Setting-nightTab-as-your-Firefox-homepage)
+## Features
 
-# Development
+- A new-tab page with bookmark groups, layouts, clock, date, and search.
+- Custom themes, fonts, colors, and image or video backgrounds.
+- Local background-image uploads, bookmark visuals, and backup/restore.
+- Settings and backups remain in the browser unless you choose to export or search using an external provider.
 
-When developing use:
-- `npm start`
+## Build and local installation
 
-A development server will automatically open the project in your browser. Normally here: `http://localhost:8080`.
+Requirements: Node.js and npm.
 
+```sh
+npm ci
+npm run build
+```
 
-To build the project use:
-- `npm run build`
+The build creates a development-ready extension directory at `dist/web/` and a store-package ZIP at `dist/extension/`.
 
-A web ready folder will be created in `/dist/web/`.
-A browser addon/extension ready zip will be created in `/dist/extension/`.
+- **Chrome and Chromium browsers:** open the browser's extensions page, enable developer mode, and load `dist/web/` as an unpacked extension.
+- **Firefox:** the manifest includes a dedicated Gecko add-on ID for a future signed release. For development, load the extension from `about:debugging`.
 
-# Screenshots
+Store listings are not published yet. Draft listing and release notes are in [docs/STORE_LISTING.md](docs/STORE_LISTING.md).
 
-[![nightTab Demo](asset/screenshot/screenshot-001.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-002.png)](https://zombiefox.github.io/nightTab/)
+## Privacy
 
-## Example nightTab setups:
+See [PRIVACY.md](PRIVACY.md). NightlyTab stores its settings and bookmarks locally. Search terms go to the search engine you select when you submit a search. Fonts and remote background/bookmark images may be requested from their respective hosts.
 
-- [Where to find these setups](https://github.com/zombieFox/nightTab/tree/main/asset/screenshot)
-- [How to import these setups](https://github.com/zombieFox/nightTab/wiki/Data-backup-and-restore#restore-data)
+## Upstream documentation and assets
 
-[![nightTab Demo](asset/screenshot/screenshot-003.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-004.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-005.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-006.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-007.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-008.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-009.gif)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-010.png)](https://zombiefox.github.io/nightTab/)
-[![nightTab Demo](asset/screenshot/screenshot-011.png)](https://zombiefox.github.io/nightTab/)
+Some existing help pages remain hosted by the upstream nightTab project. The in-app Support links identify those pages as upstream documentation. Preset backgrounds use NightlyTab's built-in theme colors instead of remotely hosted images or videos. An unrelated easter-egg GIF still loads from the upstream `nightTabAssets` repository; review its reuse rights or remove it before the first public release.
+
+## License and source
+
+NightlyTab is a modified GPL-3.0-only work. The complete source, build configuration, and build instructions are in this repository. Store releases should link to the corresponding tagged source revision. Third-party license notices are included in the extension package where available.

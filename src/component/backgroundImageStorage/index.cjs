@@ -110,6 +110,7 @@ let databasePromise;
 const database = () => {
   if (!databasePromise) {
     databasePromise = new Promise((resolve, reject) => {
+      // Keep this database name stable so existing uploaded backgrounds remain available.
       const request = globalThis.indexedDB.open('nightTabBackgroundImages', 1);
 
       request.onupgradeneeded = () => {

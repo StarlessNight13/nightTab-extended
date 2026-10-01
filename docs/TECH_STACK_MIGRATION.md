@@ -1,6 +1,6 @@
 # Tech Stack Target and Migration Plan
 
-This document records the target technology stack for nightTab Extended and the basic migration path from the current architecture.
+This document records the target technology stack for NightlyTab and the basic migration path from the current architecture.
 
 The migration must be incremental. Each phase should leave the application usable and should avoid mixing build-system changes, data-model changes, and UI rewrites in one large step.
 
@@ -23,7 +23,7 @@ The migration must be incremental. Each phase should leave the application usabl
 
 ## Architecture Direction
 
-The goal is not to turn nightTab into a large SPA with unnecessary abstractions.
+The goal is not to turn NightlyTab into a large SPA with unnecessary abstractions.
 
 Keep:
 
@@ -224,7 +224,7 @@ Tasks:
 - validate imported backups
 - validate loaded persisted state
 - move version upgrades into explicit migration functions
-- preserve support for existing nightTab data where practical
+- preserve support for legacy nightTab data where practical
 - add migration fixtures and tests
 - keep storage implementation replaceable so browser storage can be adopted later if useful
 

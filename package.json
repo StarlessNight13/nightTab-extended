@@ -1,7 +1,7 @@
 {
-  "name": "nightTab",
+  "name": "nightlytab",
   "version": "7.6.0",
-  "description": "A neutral new tab page accented with a chosen colour. Customise the layout, style, background and bookmarks with nightTab.",
+  "description": "NightlyTab is an independent, unofficial GPL-3.0 fork of nightTab with customizable bookmarks, layouts, themes, and backgrounds.",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.js",
@@ -19,14 +19,22 @@
     "extension",
     "bookmarks",
     "links",
-    "nightTab"
+    "nightlytab",
+    "nighttab-fork"
   ],
-  "author": "zombieFox",
-  "license": "GPL-3",
+  "author": "NightlyTab contributors",
+  "contributors": [
+    {
+      "name": "zombieFox",
+      "url": "https://github.com/zombieFox/nightTab",
+      "role": "Original nightTab project"
+    }
+  ],
+  "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/zombieFox/nightTab/issues"
+    "url": "https://github.com/StarlessNight13/nightTab-extended/issues"
   },
-  "homepage": "https://github.com/zombieFox/nightTab#readme",
+  "homepage": "https://github.com/StarlessNight13/nightTab-extended#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",

@@ -4,7 +4,7 @@ import * as form from '../../form';
 
 import { node } from '../../../utility/node';
 
-import { APP_NAME } from '../../../constant';
+import { APP_REPOSITORY_URL, UPSTREAM_REPOSITORY_URL } from '../../../constant';
 
 import { Link } from '../../link';
 import { Splash } from '../../splash';
@@ -17,7 +17,7 @@ appSetting.app = (parent) => {
 
   appSetting.app.link1 = new Link({
     text: message.get('menuContentAppLink1'),
-    href: `https://www.reddit.com/r/${APP_NAME}`,
+    href: UPSTREAM_REPOSITORY_URL,
     openNew: true
   });
 
@@ -25,13 +25,13 @@ appSetting.app = (parent) => {
 
   appSetting.app.link2 = new Link({
     text: message.get('menuContentAppLink2'),
-    href: `https://github.com/zombieFox/${APP_NAME}`,
+    href: APP_REPOSITORY_URL,
     openNew: true
   });
 
   appSetting.app.link3 = new Link({
     text: message.get('menuContentAppLink3'),
-    href: `https://github.com/zombieFox/${APP_NAME}/blob/master/license`,
+    href: `${APP_REPOSITORY_URL}/blob/main/license`,
     openNew: true
   });
 

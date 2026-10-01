@@ -6,7 +6,7 @@ import { menu } from '../menu';
 import { version } from '../version';
 import { update } from '../update';
 import { backgroundImageStorage } from '../backgroundImageStorage';
-import { APP_NAME } from '../../constant';
+import { APP_NAME, APP_STORAGE_KEY } from '../../constant';
 
 import { Modal } from '../modal';
 import { ImportForm } from '../importForm';
@@ -18,6 +18,13 @@ import { isJson } from '../../utility/isJson';
 import { clearChildNode } from '../../utility/clearChildNode';
 
 const data = {};
+
+const isAppData = (value) => Boolean(value && (
+  value[APP_STORAGE_KEY] ||
+  value[APP_STORAGE_KEY.toLowerCase()] ||
+  value[APP_NAME] ||
+  value[APP_NAME.toLowerCase()]
+));
 
 data.set = (key, data) => {
   window.localStorage.setItem(key, data);
@@ -134,7 +141,7 @@ data.validate = {
       // is the data a JSON object
       if (isJson(clipboardData)) {
         // is this JSON from this app
-        if (JSON.parse(clipboardData)[APP_NAME] || JSON.parse(clipboardData)[APP_NAME.toLowerCase()]) {
+        if (isAppData(JSON.parse(clipboardData))) {
           data.feedback.clear.render(feedback);
 
           data.feedback.success.render(feedback, 'Clipboard data', () => {
@@ -173,7 +180,7 @@ data.validate = {
       // is this a JSON file
       if (isJson(event.target.result)) {
         // is this JSON from this app
-        if (JSON.parse(event.target.result)[APP_NAME] || JSON.parse(event.target.result)[APP_NAME.toLowerCase()]) {
+        if (isAppData(JSON.parse(event.target.result))) {
           data.feedback.clear.render(feedback);
 
           data.feedback.success.render(feedback, fileList[0].name, () => {
@@ -253,7 +260,7 @@ data.remove = (key) => {
 
 data.backup = (dataToBackup) => {
   if (dataToBackup) {
-    data.set(APP_NAME + 'Backup', backgroundImageStorage.serialize(dataToBackup));
+    data.set(APP_STORAGE_KEY + 'Backup', backgroundImageStorage.serialize(dataToBackup));
 
     console.log('data version ' + dataToBackup.version + ' backed up');
   }
@@ -303,7 +310,7 @@ data.releaseBackgroundImages = (previous, snapshot) => {
   let backup;
 
   try {
-    backup = JSON.parse(data.get(APP_NAME + 'Backup'));
+    backup = JSON.parse(data.get(APP_STORAGE_KEY + 'Backup'));
   } catch {
     // Retain images when an unreadable backup might still reference them.
     return Promise.resolve();
@@ -315,20 +322,20 @@ data.releaseBackgroundImages = (previous, snapshot) => {
 data.save = () => {
   const previous = data.load();
   const snapshot = {
-    [APP_NAME]: true,
+    [APP_STORAGE_KEY]: true,
     version: version.number,
     state: state.get.current(),
     bookmark: bookmark.all
   };
 
-  data.set(APP_NAME, backgroundImageStorage.serialize(snapshot));
+  data.set(APP_STORAGE_KEY, backgroundImageStorage.serialize(snapshot));
 
   data.releaseBackgroundImages(previous, snapshot).catch(console.error);
 };
 
 data.load = () => {
-  if (data.get(APP_NAME) !== null && data.get(APP_NAME) !== undefined) {
-    let dataToLoad = JSON.parse(data.get(APP_NAME));
+  if (data.get(APP_STORAGE_KEY) !== null && data.get(APP_STORAGE_KEY) !== undefined) {
+    let dataToLoad = JSON.parse(data.get(APP_STORAGE_KEY));
 
     if (dataToLoad.version !== version.number) {
       data.backup(dataToLoad);
@@ -346,7 +353,7 @@ data.wipe = {
   all: async () => {
     const previous = data.load();
 
-    data.remove(APP_NAME);
+    data.remove(APP_STORAGE_KEY);
 
     await data.releaseBackgroundImages(previous, null).catch(console.error);
 
@@ -357,8 +364,8 @@ data.wipe = {
 
     bookmark.reset();
 
-    data.set(APP_NAME, JSON.stringify({
-      [APP_NAME]: true,
+    data.set(APP_STORAGE_KEY, JSON.stringify({
+      [APP_STORAGE_KEY]: true,
       version: version.number,
       state: state.get.default(),
       bookmark: bookmark.all

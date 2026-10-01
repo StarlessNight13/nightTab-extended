@@ -1,6 +1,6 @@
 import { state } from '../state';
 import { imageDataToBlob, getBackgroundImageSource } from '../backgroundImageStorage';
-import { APP_NAME } from '../../constant';
+import { APP_STORAGE_KEY } from '../../constant';
 import { toolbar } from '../toolbar';
 import { bookmark } from '../bookmark';
 import { bookmarkDefault } from '../bookmarkDefault';
@@ -282,15 +282,15 @@ theme.style = {
       case 'dark':
       case 'light':
 
-        localStorage.setItem(APP_NAME + 'Style', state.get.current().theme.style);
+        localStorage.setItem(APP_STORAGE_KEY + 'Style', state.get.current().theme.style);
         break;
 
       case 'system':
 
         if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
-          localStorage.setItem(APP_NAME + 'Style', 'dark');
+          localStorage.setItem(APP_STORAGE_KEY + 'Style', 'dark');
         } else if (window.matchMedia('(prefers-color-scheme:light)').matches) {
-          localStorage.setItem(APP_NAME + 'Style', 'light');
+          localStorage.setItem(APP_STORAGE_KEY + 'Style', 'light');
         }
         break;
 

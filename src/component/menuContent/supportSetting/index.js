@@ -1,6 +1,6 @@
 import { message } from '../../message';
 
-import { APP_NAME } from '../../../constant';
+import { APP_REPOSITORY_URL, UPSTREAM_REPOSITORY_URL } from '../../../constant';
 
 import * as form from '../../form';
 
@@ -15,7 +15,7 @@ supportSetting.supportPage = {
 
     const supportLink = {};
 
-    supportLink.baseUrl = 'https://github.com/zombieFox/' + APP_NAME + '/wiki/';
+    supportLink.baseUrl = UPSTREAM_REPOSITORY_URL + '/wiki/';
 
     supportLink.page = {
       applyToAll: {
@@ -60,7 +60,7 @@ supportSetting.supportPage = {
       },
       firefox: {
         label: message.get('menuContentSupportPageFirefox'),
-        url: 'Setting-' + APP_NAME + '-as-your-Firefox-homepage'
+        url: 'Setting-nightTab-as-your-Firefox-homepage'
       },
     };
 
@@ -103,13 +103,13 @@ supportSetting.support = (parent) => {
 
   supportSetting.support.linkIssue = new Link({
     text: message.get('menuContentSupportLink1'),
-    href: `https://github.com/zombieFox/${APP_NAME}/issues`,
+    href: `${APP_REPOSITORY_URL}/issues`,
     openNew: true
   });
 
   supportSetting.support.linkWiki = new Link({
     text: message.get('menuContentSupportLink2'),
-    href: `https://github.com/zombieFox/${APP_NAME}/wiki`,
+    href: `${UPSTREAM_REPOSITORY_URL}/wiki`,
     openNew: true
   });
 

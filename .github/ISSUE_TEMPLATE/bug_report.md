@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-# Have you checked the [nightTab Wiki for support?](https://github.com/zombieFox/nightTab/wiki)
+# Have you checked the [upstream nightTab Wiki for support?](https://github.com/zombieFox/nightTab/wiki)
 
 **Please check before posting a question or issue.**
 

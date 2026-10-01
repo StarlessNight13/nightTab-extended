@@ -785,14 +785,14 @@ showcase.area.assemble = () => {
         }),
       ]
     }),
-    new Link({ text: 'nightTab', href: 'https://github.com/zombieFox/nightTab', openNew: true }).wrap(),
+    new Link({ text: 'NightlyTab', href: 'https://github.com/StarlessNight13/nightTab-extended', openNew: true }).wrap(),
     form.wrap({
       children: [
-        node('p:A neutral new tab page accented with a chosen colour. Customise the layout, style, background and bookmarks with nightTab.'),
+        node('p:Customize your new tab page with NightlyTab: arrange bookmarks, change themes and personalize backgrounds.'),
       ]
     }),
     new Control_helperText({
-      text: ['A neutral new tab page accented with a chosen colour. Customise the layout, style, background and bookmarks with nightTab.']
+      text: ['Customize your new tab page with NightlyTab: arrange bookmarks, change themes and personalize backgrounds.']
     }).wrap(),
     form.wrap({
       children: [

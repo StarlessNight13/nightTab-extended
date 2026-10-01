@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "nightTab",
+    "message": "NightlyTab",
     "description": "The name of the extension, displayed in the web store."
   },
   "appShortName": {
-    "message": "nightTab",
+    "message": "NightlyTab",
     "description": "The name of the extension, displayed in the web store."
   },
   "appDescription": {
@@ -1880,7 +1880,7 @@
     "description": "Support link to project wiki."
   },
   "menuContentSupportPara": {
-    "message": "আরও সমর্থন বা প্রতিক্রিয়ার জন্য:",
+    "message": "The guides below are from the original nightTab project. Some details may not cover NightlyTab-specific changes.",
     "description": "Paragraph to get more support or provide feedback."
   },
   "menuContentSupportLink1": {
@@ -1892,32 +1892,32 @@
     "description": "Link to the project wiki."
   },
   "menuContentCoffeePara": {
-    "message": "{appName} বিনামূল্যে, প্রশংসা কফি আকারে স্বাগত!",
-    "description": "Paragraph to explain the project is free."
+    "message": "NightlyTab is maintained independently. This link supports the original nightTab developer, zombieFox.",
+    "description": "Paragraph clarifying that the donation link supports the original nightTab developer."
   },
   "menuContentCoffeeButton": {
-    "message": "আমাকে একটা কফি কিনে দাও",
-    "description": "Link to buy me a coffee to support the project."
+    "message": "Support the original nightTab developer",
+    "description": "Link to support the original nightTab developer."
   },
   "menuContentAppPara1": {
-    "message": "সম্প্রদায়ের সাথে আপনার সেটআপ ভাগ করুন.",
-    "description": "Paragraph on where to share with the community."
+    "message": "NightlyTab is an independent, unofficial fork of nightTab by zombieFox. It is released under GPL-3.0 with no warranty.",
+    "description": "Statement identifying NightlyTab as an independent GPL-3.0 fork without warranty."
   },
   "menuContentAppLink1": {
-    "message": "Reddit/r/{appName} পাওয়া গেছে।",
-    "description": "Link to the community on Reddit."
+    "message": "Original nightTab project by zombieFox.",
+    "description": "Link to the original nightTab project by zombieFox."
   },
   "menuContentAppPara2": {
-    "message": "এই প্রকল্পটি ওপেন সোর্স।",
-    "description": "Paragraph on this project being open source."
+    "message": "NightlyTab source, changes, and license are available here.",
+    "description": "Paragraph pointing to NightlyTab source, changes, and license."
   },
   "menuContentAppLink2": {
-    "message": "GitHub এ পাওয়া গেছে।",
-    "description": "Link to project on GitHub."
+    "message": "NightlyTab source and support on GitHub.",
+    "description": "Link to the NightlyTab source and support repository."
   },
   "menuContentAppLink3": {
-    "message": "GNU সাধারণ পাবলিক লাইসেন্স v3.0.",
-    "description": "Link to project project licence."
+    "message": "GNU General Public License v3.0.",
+    "description": "Link to the NightlyTab GPL license."
   },
   "bookmarkTileControlLeft": {
     "message": "এই বুকমার্ক বামে সরান",
@@ -2203,15 +2203,42 @@
     "message": "https://www.example.com/image.jpg",
     "description": "Placeholder for bookmark tile visual image URL."
   },
-  "bookmarkFormDisplayVisualImageFilterGrayscale": { "message": "গ্রেস্কেল", "description": "Label for the bookmark image grayscale filter." },
-  "bookmarkFormDisplayVisualImageFilterSepia": { "message": "সেপিয়া", "description": "Label for the bookmark image sepia filter." },
-  "bookmarkFormDisplayVisualImageFilterSaturation": { "message": "স্যাচুরেশন", "description": "Label for the bookmark image saturation filter." },
-  "bookmarkFormDisplayVisualImageFilterBrightness": { "message": "উজ্জ্বলতা", "description": "Label for the bookmark image brightness filter." },
-  "bookmarkFormDisplayVisualImageFilterContrast": { "message": "কনট্রাস্ট", "description": "Label for the bookmark image contrast filter." },
-  "bookmarkFormDisplayVisualImageFilterHueRotation": { "message": "হিউ রোটেশন", "description": "Label for the bookmark image hue rotation filter." },
-  "bookmarkFormDisplayVisualImageFilterBlur": { "message": "ব্লার", "description": "Label for the bookmark image blur filter." },
-  "bookmarkFormDisplayVisualImageFiltersReset": { "message": "ছবির ফিল্টার রিসেট করুন", "description": "Button to reset bookmark image filters." },
-  "bookmarkFormDisplayVisualImageFiltersSummary": { "message": "ছবির ফিল্টার", "description": "Disclosure summary for bookmark image filters." },
+  "bookmarkFormDisplayVisualImageFilterGrayscale": {
+    "message": "গ্রেস্কেল",
+    "description": "Label for the bookmark image grayscale filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterSepia": {
+    "message": "সেপিয়া",
+    "description": "Label for the bookmark image sepia filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterSaturation": {
+    "message": "স্যাচুরেশন",
+    "description": "Label for the bookmark image saturation filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterBrightness": {
+    "message": "উজ্জ্বলতা",
+    "description": "Label for the bookmark image brightness filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterContrast": {
+    "message": "কনট্রাস্ট",
+    "description": "Label for the bookmark image contrast filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterHueRotation": {
+    "message": "হিউ রোটেশন",
+    "description": "Label for the bookmark image hue rotation filter."
+  },
+  "bookmarkFormDisplayVisualImageFilterBlur": {
+    "message": "ব্লার",
+    "description": "Label for the bookmark image blur filter."
+  },
+  "bookmarkFormDisplayVisualImageFiltersReset": {
+    "message": "ছবির ফিল্টার রিসেট করুন",
+    "description": "Button to reset bookmark image filters."
+  },
+  "bookmarkFormDisplayVisualImageFiltersSummary": {
+    "message": "ছবির ফিল্টার",
+    "description": "Disclosure summary for bookmark image filters."
+  },
   "bookmarkFormDisplayVisualShadowSize": {
     "message": "চাক্ষুষ ছায়া",
     "description": "Range for bookmark tile visual shadow."
